@@ -24,7 +24,7 @@ export function EnquiryReview({
       <div className="max-w-xl mx-auto space-y-6">
         <button
           onClick={onBack}
-          className="flex items-center gap-1.5 text-body-sm font-semibold text-ink hover:text-muted transition-colors"
+          className="flex items-center gap-1.5 text-body-sm font-bold text-ink hover:text-muted transition-colors cursor-pointer active:scale-95"
         >
           <ArrowLeft size={16} />
           <span>Edit Details</span>
@@ -38,7 +38,7 @@ export function EnquiryReview({
         </div>
 
         {/* Review Card */}
-        <div className="border border-hairline rounded-airbnb-lg p-6 bg-canvas shadow-airbnb space-y-6 divide-y divide-hairline">
+        <div className="border border-hairline rounded-2xl p-6 sm:p-8 bg-white shadow-airbnb-card space-y-6 divide-y divide-hairline">
           {/* Section 1: Event & Stall */}
           <div className="space-y-3 pb-6">
             <span className="text-[11px] font-semibold text-muted uppercase tracking-wider block">
@@ -56,8 +56,8 @@ export function EnquiryReview({
                 <span className="text-caption-sm text-muted">{stall.size}</span>
               </div>
             </div>
-            <div className="p-3 bg-surface-soft rounded-airbnb-sm flex justify-between items-center text-body-sm">
-              <span className="text-muted">Total Stall Fee</span>
+            <div className="p-4 bg-surface-soft rounded-xl border border-hairline/80 flex justify-between items-center text-body-sm">
+              <span className="text-muted font-medium">Total Stall Fee</span>
               <strong className="text-display-sm font-bold text-ink tabular-nums">
                 ₹{stall.price.toLocaleString('en-IN')}
               </strong>
@@ -87,7 +87,7 @@ export function EnquiryReview({
                   {brand.mustHaves.map(m => (
                     <span
                       key={m}
-                      className="text-[11px] font-medium bg-surface-soft px-2.5 py-0.5 rounded-full text-ink"
+                      className="text-[11px] font-medium bg-surface-soft px-2.5 py-0.5 rounded-full text-ink border border-hairline/80"
                     >
                       ✓ {m}
                     </span>
@@ -102,7 +102,7 @@ export function EnquiryReview({
             <span className="text-[11px] font-semibold text-muted uppercase tracking-wider block">
               Personal Note to Organizer
             </span>
-            <p className="text-body-sm text-body leading-relaxed bg-surface-soft/40 p-3 rounded-airbnb-sm">
+            <p className="text-body-sm text-ink leading-relaxed bg-surface-soft p-4 rounded-xl border border-hairline/80">
               {message}
             </p>
           </div>
@@ -125,7 +125,7 @@ export function EnquiryReview({
         <div className="space-y-3 pt-2">
           <button
             onClick={onSubmit}
-            className="w-full py-4 rounded-airbnb-sm bg-rausch hover:bg-rausch-hover active:bg-rausch-active text-white text-body-md font-semibold shadow-md transition-all active:scale-[0.98] cursor-pointer"
+            className="w-full py-4 rounded-xl bg-rausch hover:bg-rausch-hover active:bg-rausch-active text-white text-body-md font-bold shadow-md transition-all active:scale-[0.98] cursor-pointer"
           >
             Submit Stall Enquiry
           </button>

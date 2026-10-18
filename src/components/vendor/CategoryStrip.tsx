@@ -36,8 +36,8 @@ export function CategoryStrip({ activeCategory, onSelectCategory }: CategoryStri
               <button
                 key={cat.id}
                 type="button"
-                onClick={() => onSelectCategory(cat.id)}
-                className={`flex flex-col items-center gap-1.5 flex-shrink-0 group pb-2 relative transition-all duration-150 cursor-pointer ${
+                onClick={() => onSelectCategory(activeCategory === cat.id ? 'all' : cat.id)}
+                className={`flex flex-col items-center gap-1.5 flex-shrink-0 group pb-2 relative transition-all duration-150 active:scale-95 cursor-pointer ${
                   isActive ? 'text-zinc-900' : 'text-zinc-500 hover:text-zinc-900'
                 }`}
               >

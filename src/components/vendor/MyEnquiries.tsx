@@ -35,7 +35,7 @@ export function MyEnquiries({
         <div className="flex items-center justify-between pb-4 border-b border-hairline">
           <button
             onClick={onBack}
-            className="flex items-center gap-1.5 text-body-sm font-semibold text-ink hover:text-muted transition-colors"
+            className="flex items-center gap-1.5 text-body-sm font-bold text-ink hover:text-muted transition-colors cursor-pointer active:scale-95"
           >
             <ArrowLeft size={16} />
             <span>Back to Discovery</span>
@@ -68,9 +68,9 @@ export function MyEnquiries({
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`px-4 py-2 rounded-full text-caption font-medium transition-all active:scale-95 cursor-pointer ${
+              className={`px-4 py-2 rounded-full text-caption font-semibold transition-all active:scale-95 cursor-pointer ${
                 activeTab === tab.id
-                  ? 'bg-ink text-white font-semibold shadow-sm'
+                  ? 'bg-ink text-white shadow-sm'
                   : 'text-muted hover:text-ink bg-surface-soft hover:bg-zinc-200/60'
               }`}
             >
@@ -81,15 +81,15 @@ export function MyEnquiries({
 
         {/* Enquiries List */}
         {filtered.length === 0 ? (
-          <div className="text-center py-16 space-y-3 bg-surface-soft/40 rounded-airbnb-lg border border-dashed border-hairline p-8">
+          <div className="text-center py-16 space-y-3 bg-surface-soft/60 rounded-2xl border-2 border-dashed border-hairline p-8">
             <Store size={36} className="mx-auto text-muted-soft" />
-            <h3 className="text-title-md font-semibold text-ink">No enquiries in this view</h3>
+            <h3 className="text-title-md font-bold text-ink">No enquiries in this view</h3>
             <p className="text-body-sm text-muted">
               Browse upcoming flea markets and expos to find your next exhibition opportunity.
             </p>
             <button
               onClick={onBrowseEvents}
-              className="mt-2 px-5 py-2.5 rounded-airbnb-sm bg-ink text-white text-body-sm font-semibold shadow-sm hover:bg-black transition-all active:scale-95 cursor-pointer"
+              className="mt-2 px-6 py-3 rounded-xl bg-ink text-white text-body-sm font-bold shadow-sm hover:bg-black transition-all active:scale-95 cursor-pointer"
             >
               Explore Exhibitions
             </button>
@@ -111,7 +111,7 @@ export function MyEnquiries({
               return (
                 <div
                   key={enq.id}
-                  className="p-5 rounded-airbnb-lg border border-hairline bg-canvas shadow-airbnb space-y-4"
+                  className="p-6 rounded-2xl border border-hairline bg-white shadow-airbnb-card hover:shadow-airbnb-card-hover transition-all space-y-4"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-hairline-soft">
                     <div className="flex items-center gap-2">
@@ -157,16 +157,17 @@ export function MyEnquiries({
                   </div>
 
                   {/* Brand snapshot */}
-                  <div className="p-3 bg-surface-soft/60 rounded-airbnb-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-caption-sm">
+                  <div className="p-3.5 bg-surface-soft rounded-xl border border-hairline/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-caption-sm">
                     <div>
                       <span className="text-muted">Brand: </span>
-                      <strong className="text-ink font-semibold">{enq.vendorBrand.name}</strong> ({enq.vendorBrand.category})
+                      <strong className="text-ink font-bold">{enq.vendorBrand.name}</strong> ({enq.vendorBrand.category})
                     </div>
                     <button
                       onClick={openWhatsApp}
-                      className="inline-flex items-center gap-1 text-emerald-700 hover:text-emerald-800 font-semibold"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-caption border border-emerald-200 shadow-sm transition-all active:scale-95 cursor-pointer"
                     >
-                      <MessageCircle size={14} /> Message Organizer
+                      <MessageCircle size={15} className="text-emerald-600" />
+                      <span>Message Organizer</span>
                     </button>
                   </div>
                 </div>

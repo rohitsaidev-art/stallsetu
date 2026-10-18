@@ -100,7 +100,18 @@ export function FilterSheet({
         <div className="p-6 overflow-y-auto space-y-6 flex-1 bg-white divide-y divide-zinc-100">
           {/* City Selection */}
           <div className="space-y-3">
-            <h3 className="text-[14px] font-bold text-zinc-900">City / Location</h3>
+            <div className="flex items-center justify-between">
+              <h3 className="text-[14px] font-bold text-ink">City / Location</h3>
+              {selectedCity !== 'all' && (
+                <button
+                  type="button"
+                  onClick={() => onSelectCity('all')}
+                  className="text-[12px] font-semibold text-muted hover:text-ink underline cursor-pointer"
+                >
+                  Reset city
+                </button>
+              )}
+            </div>
             <div className="flex flex-wrap gap-2">
               {cities.map(c => {
                 const active = selectedCity === c.id;
@@ -108,11 +119,11 @@ export function FilterSheet({
                   <button
                     key={c.id}
                     type="button"
-                    onClick={() => onSelectCity(c.id)}
-                    className={`px-4 py-2 rounded-full text-[13px] font-semibold border transition-all duration-150 active:scale-95 cursor-pointer ${
+                    onClick={() => onSelectCity(selectedCity === c.id ? 'all' : c.id)}
+                    className={`px-4 py-2 rounded-full text-[13px] font-semibold border transition-all duration-150 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-1 ${
                       active
-                        ? 'bg-zinc-900 text-white border-zinc-900 shadow-sm'
-                        : 'bg-white text-zinc-700 border-zinc-300 hover:border-zinc-900'
+                        ? 'bg-ink text-white border-ink shadow-sm'
+                        : 'bg-white text-ink border-hairline hover:border-ink hover:bg-surface-soft'
                     }`}
                   >
                     {c.label}
@@ -124,7 +135,18 @@ export function FilterSheet({
 
           {/* Category Filter */}
           <div className="pt-6 space-y-3">
-            <h3 className="text-[14px] font-bold text-zinc-900">Event Category</h3>
+            <div className="flex items-center justify-between">
+              <h3 className="text-[14px] font-bold text-ink">Event Category</h3>
+              {selectedCategory !== 'all' && (
+                <button
+                  type="button"
+                  onClick={() => onSelectCategory('all')}
+                  className="text-[12px] font-semibold text-muted hover:text-ink underline cursor-pointer"
+                >
+                  Reset category
+                </button>
+              )}
+            </div>
             <div className="flex flex-wrap gap-2">
               {categories.map(cat => {
                 const active = selectedCategory === cat.id;
@@ -132,11 +154,11 @@ export function FilterSheet({
                   <button
                     key={cat.id}
                     type="button"
-                    onClick={() => onSelectCategory(cat.id)}
-                    className={`px-4 py-2 rounded-full text-[13px] font-semibold border transition-all duration-150 active:scale-95 cursor-pointer ${
+                    onClick={() => onSelectCategory(selectedCategory === cat.id ? 'all' : cat.id)}
+                    className={`px-4 py-2 rounded-full text-[13px] font-semibold border transition-all duration-150 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-1 ${
                       active
-                        ? 'bg-zinc-900 text-white border-zinc-900 shadow-sm'
-                        : 'bg-white text-zinc-700 border-zinc-300 hover:border-zinc-900'
+                        ? 'bg-ink text-white border-ink shadow-sm'
+                        : 'bg-white text-ink border-hairline hover:border-ink hover:bg-surface-soft'
                     }`}
                   >
                     {cat.label}
@@ -177,15 +199,19 @@ export function FilterSheet({
             </div>
             <button
               type="button"
+              role="switch"
+              aria-checked={onlyAvailable}
               onClick={onToggleOnlyAvailable}
-              className={`w-13 h-7 rounded-full p-1 transition-colors duration-200 flex items-center cursor-pointer border ${
-                onlyAvailable
-                  ? 'bg-zinc-900 border-zinc-900 justify-end'
-                  : 'bg-zinc-200 border-zinc-300 justify-start'
+              className={`relative inline-flex h-7 w-12 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2 ${
+                onlyAvailable ? 'bg-ink' : 'bg-zinc-300'
               }`}
-              style={{ width: '52px' }}
             >
-              <div className="w-5 h-5 rounded-full bg-white shadow-md" />
+              <span
+                aria-hidden="true"
+                className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                  onlyAvailable ? 'translate-x-5' : 'translate-x-0'
+                }`}
+              />
             </button>
           </div>
         </div>
@@ -195,14 +221,14 @@ export function FilterSheet({
           <button
             type="button"
             onClick={onReset}
-            className="text-[13px] font-bold text-zinc-700 hover:text-zinc-900 underline cursor-pointer"
+            className="text-[13px] font-bold text-muted hover:text-ink underline cursor-pointer active:scale-95 transition-colors"
           >
             Clear all
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="px-6 py-3 rounded-xl bg-rausch hover:bg-rausch-hover text-white font-bold text-[14px] shadow-md transition-all active:scale-[0.98] cursor-pointer"
+            className="px-7 py-3 rounded-xl bg-rausch hover:bg-rausch-hover active:bg-rausch-active text-white font-bold text-[14px] shadow-md transition-all active:scale-[0.98] cursor-pointer"
           >
             Show {totalFilteredCount} {totalFilteredCount === 1 ? 'Exhibition' : 'Exhibitions'}
           </button>

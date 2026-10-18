@@ -214,9 +214,9 @@ export default function App() {
               handleResetFilters();
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="flex items-center gap-2 flex-shrink-0 text-left group"
+            className="flex items-center gap-2 flex-shrink-0 text-left group cursor-pointer active:scale-95 transition-transform"
           >
-            <div className="w-8 h-8 rounded-airbnb-sm bg-rausch flex items-center justify-center text-white shadow-sm transition-transform group-hover:scale-105">
+            <div className="w-8 h-8 rounded-xl bg-rausch flex items-center justify-center text-white shadow-sm transition-transform group-hover:scale-105">
               <span className="font-bold text-sm tracking-tight">S</span>
             </div>
             <div>
@@ -244,16 +244,16 @@ export default function App() {
             {/* Wishlist filter toggle */}
             <button
               onClick={() => setWishlistOnly(prev => !prev)}
-              className={`h-9 px-3 rounded-full border text-caption flex items-center gap-1.5 transition-all ${
+              className={`h-9 px-3.5 rounded-full border text-caption flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shadow-sm ${
                 wishlistOnly
-                  ? 'border-rausch bg-rausch/10 text-rausch font-semibold'
-                  : 'border-hairline hover:bg-surface-soft text-ink'
+                  ? 'border-rausch bg-rausch/10 text-rausch font-bold'
+                  : 'border-hairline bg-white hover:border-ink hover:bg-surface-soft text-ink font-semibold'
               }`}
               title="Saved Events"
             >
               <Heart
                 size={14}
-                className={wishlistOnly ? 'fill-rausch text-rausch' : 'text-ink'}
+                className={wishlistOnly ? 'fill-rausch text-rausch' : 'text-zinc-700'}
               />
               <span className="hidden sm:inline">Saved</span>
               {store.wishlistIds.length > 0 && (
@@ -264,12 +264,12 @@ export default function App() {
             {/* My Enquiries Button */}
             <button
               onClick={() => setCurrentScreen('my_enquiries')}
-              className="h-9 px-3.5 rounded-full bg-ink text-white hover:bg-black font-semibold text-caption flex items-center gap-1.5 shadow-sm transition-all active:scale-95"
+              className="h-9 px-4 rounded-full bg-ink text-white hover:bg-black font-bold text-caption flex items-center gap-2 shadow-sm transition-all active:scale-95 cursor-pointer"
             >
               <ClipboardList size={14} />
               <span>My Enquiries</span>
               {store.enquiries.length > 0 && (
-                <span className="bg-rausch text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full">
+                <span className="bg-rausch text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
                   {store.enquiries.length}
                 </span>
               )}
@@ -317,17 +317,24 @@ export default function App() {
 
           <button
             onClick={() => setIsFilterOpen(true)}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-full border border-hairline hover:bg-surface-soft text-caption font-semibold text-ink transition-colors"
+            className={`flex items-center gap-2 px-4 py-2 rounded-full border border-hairline bg-white hover:border-ink hover:bg-surface-soft text-caption font-bold text-ink transition-all active:scale-95 cursor-pointer shadow-sm ${
+              selectedCity !== 'all' || selectedCategory !== 'all' || maxBudget < 100000 || onlyAvailable
+                ? 'border-ink bg-surface-soft ring-1 ring-ink'
+                : ''
+            }`}
           >
             <Filter size={14} />
             <span>Filters</span>
+            {(selectedCity !== 'all' || selectedCategory !== 'all' || maxBudget < 100000 || onlyAvailable) && (
+              <span className="w-2 h-2 rounded-full bg-rausch" />
+            )}
           </button>
         </div>
 
         {/* Event Cards Grid */}
         {filteredEvents.length === 0 ? (
-          <div className="text-center py-20 bg-surface-soft/40 rounded-airbnb-lg border border-dashed border-hairline p-8 space-y-3">
-            <h3 className="text-title-md font-semibold text-ink">
+          <div className="text-center py-20 bg-surface-soft/60 rounded-2xl border-2 border-dashed border-hairline p-8 space-y-3">
+            <h3 className="text-title-md font-bold text-ink">
               {wishlistOnly ? 'No saved exhibitions yet' : 'No exhibitions match your criteria'}
             </h3>
             <p className="text-body-sm text-muted max-w-md mx-auto">
@@ -337,7 +344,7 @@ export default function App() {
             </p>
             <button
               onClick={handleResetFilters}
-              className="mt-2 px-5 py-2.5 rounded-airbnb-sm bg-ink text-white text-body-sm font-semibold shadow-sm hover:bg-black transition-all active:scale-95 cursor-pointer"
+              className="mt-2 px-6 py-3 rounded-xl bg-ink text-white text-body-sm font-bold shadow-sm hover:bg-black transition-all active:scale-95 cursor-pointer"
             >
               {wishlistOnly ? 'Explore All Exhibitions' : 'Reset All Filters'}
             </button>

@@ -81,7 +81,7 @@ export function EventDetail({
         <button
           type="button"
           onClick={onBack}
-          className="flex items-center gap-2 text-[14px] font-bold text-zinc-900 hover:text-rausch transition-colors cursor-pointer"
+          className="flex items-center gap-2 text-[14px] font-bold text-zinc-900 hover:text-rausch transition-all active:scale-95 cursor-pointer"
         >
           <ArrowLeft size={18} />
           <span>All Exhibitions</span>
@@ -109,7 +109,7 @@ export function EventDetail({
                 alert('Event link copied to clipboard!');
               }
             }}
-            className="w-9 h-9 rounded-full border border-zinc-200 hover:bg-zinc-100 flex items-center justify-center text-zinc-900 transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-full border border-zinc-200 hover:bg-zinc-100 flex items-center justify-center text-zinc-900 transition-all active:scale-90 cursor-pointer"
             aria-label="Share event"
           >
             <Share2 size={17} />
@@ -338,10 +338,10 @@ export function EventDetail({
                     <button
                       key={cat}
                       type="button"
-                      onClick={() => setSelectedStallCategory(cat)}
-                      className={`px-3 py-1.5 rounded-full text-[12px] font-semibold capitalize whitespace-nowrap transition-all cursor-pointer ${
+                      onClick={() => setSelectedStallCategory(selectedStallCategory === cat ? 'all' : cat)}
+                      className={`px-3 py-1.5 rounded-full text-[12px] font-semibold capitalize whitespace-nowrap transition-all active:scale-95 cursor-pointer ${
                         selectedStallCategory === cat
-                          ? 'bg-zinc-900 text-white shadow-sm'
+                          ? 'bg-ink text-white shadow-sm'
                           : 'bg-zinc-100 text-zinc-600 hover:text-zinc-900 border border-zinc-200'
                       }`}
                     >
@@ -399,13 +399,17 @@ export function EventDetail({
                             type="button"
                             disabled={!isAvail}
                             onClick={() => onSelectStall(stall)}
-                            className={`mt-1.5 px-6 py-2.5 rounded-xl font-bold text-[13px] transition-all active:scale-95 cursor-pointer ${
+                            className={`mt-1.5 px-6 py-2.5 rounded-xl font-bold text-[13px] transition-all active:scale-95 ${
                               isAvail
-                                ? 'bg-rausch hover:bg-rausch-hover text-white shadow-md'
-                                : 'bg-zinc-200 text-zinc-500 cursor-not-allowed'
+                                ? 'bg-rausch hover:bg-rausch-hover text-white shadow-md cursor-pointer'
+                                : 'bg-zinc-100 text-zinc-400 border border-zinc-200 cursor-not-allowed opacity-90'
                             }`}
                           >
-                            {isAvail ? 'Select Stall' : 'Occupied'}
+                            {isAvail
+                              ? 'Select Stall'
+                              : stall.status === 'held'
+                              ? 'Held in Pipeline'
+                              : 'Occupied'}
                           </button>
                         </div>
                       </div>

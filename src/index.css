@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color: #222222;
+    background-color: #FFFFFF;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  body {
+    background-color: #FFFFFF;
+    color: #222222;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+  }
+
+  *, ::before, ::after {
+    border-color: #DDDDDD;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.02em;
+    color: #222222;
+  }
+}
+
+/* =========================================================================
+   AIRBNB DLS TYPOGRAPHY TOKENS (from airbnb-DESIGN.md)
+   ========================================================================= */
+.text-display-xl {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+}
+
+.text-display-lg {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.text-display-md {
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.text-display-sm {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.text-title-md {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.text-title-sm {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.text-body-md {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.text-body-sm {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.43;
+}
+
+.text-caption {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.29;
+}
+
+.text-caption-sm {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.23;
+}
+
+.text-badge {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.18;
+}
+
+.text-micro-label {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.33;
+}
+
+.text-button-md {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.text-button-sm {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.29;
+}
+
+/* =========================================================================
+   EMIL KOWALSKI MICRO-INTERACTIONS & POLISH
+   ========================================================================= */
+button, [role="button"] {
+  user-select: none;
+}
+
+/* Tabular figures for pricing numbers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hide scrollbars cleanly */
+.no-scrollbar::-webkit-scrollbar,
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar,
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

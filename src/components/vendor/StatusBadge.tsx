@@ -40,10 +40,10 @@ const enquiryConfig: Record<EnquiryStatus, EnquiryConfig> = {
   },
   paid_outside: {
     label: 'Booking Confirmed ✓',
-    dot: 'bg-ink',
-    bg: 'bg-surface-soft',
-    text: 'text-ink',
-    border: 'border-hairline',
+    dot: 'bg-zinc-900',
+    bg: 'bg-zinc-100',
+    text: 'text-zinc-900',
+    border: 'border-zinc-300',
   },
 };
 
@@ -64,10 +64,10 @@ const stallConfig: Record<StallStatus, { label: string; dot: string; bg: string;
   },
   booked: {
     label: 'Occupied',
-    dot: 'bg-muted-soft',
-    bg: 'bg-surface-soft',
-    text: 'text-muted',
-    border: 'border-hairline',
+    dot: 'bg-zinc-400',
+    bg: 'bg-zinc-100',
+    text: 'text-zinc-600',
+    border: 'border-zinc-200',
   },
 };
 
@@ -75,7 +75,7 @@ export function EnquiryStatusBadge({ status }: { status: EnquiryStatus }) {
   const cfg = enquiryConfig[status] || enquiryConfig.new;
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-bold border ${cfg.bg} ${cfg.text} ${cfg.border} shadow-sm tracking-tight`}
+      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-semibold border ${cfg.bg} ${cfg.text} ${cfg.border} shadow-sm`}
     >
       <span className={`w-2 h-2 rounded-full ${cfg.dot}`} />
       {cfg.label}
@@ -87,7 +87,7 @@ export function StallStatusBadge({ status }: { status: StallStatus }) {
   const cfg = stallConfig[status] || stallConfig.available;
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${cfg.bg} ${cfg.text} ${cfg.border} tracking-tight`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${cfg.bg} ${cfg.text} ${cfg.border}`}
     >
       <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot}`} />
       {cfg.label}

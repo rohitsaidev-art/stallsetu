@@ -144,61 +144,59 @@ export function BrandProfileForm({
   };
 
   return (
-    <div className="bg-white min-h-screen py-8 px-4 sm:px-6">
+    <div className="bg-canvas min-h-screen py-8 px-4 sm:px-6">
       <div className="max-w-2xl mx-auto space-y-6">
         {/* Top Header */}
         <div className="flex items-center justify-between pb-4 border-b border-hairline">
           <button
-            type="button"
             onClick={onBack}
-            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-hairline bg-white hover:bg-surface-soft active:bg-surface-strong text-caption font-bold text-ink shadow-sm transition-all active:scale-95 cursor-pointer"
+            className="flex items-center gap-1.5 text-body-sm font-semibold text-ink hover:text-muted transition-colors"
           >
             <ArrowLeft size={16} />
-            <span>Cancel & Exit</span>
+            <span>Cancel</span>
           </button>
           <div className="text-right">
-            <p className="text-title-sm font-bold text-ink">
-              Stall {stall.label} · ₹{stall.price.toLocaleString('en-IN')}
+            <p className="text-[12px] font-semibold text-ink">
+              {stall.label} · ₹{stall.price.toLocaleString('en-IN')}
             </p>
-            <p className="text-caption-sm text-muted font-medium">{event.name}</p>
+            <p className="text-[11px] text-muted">{event.name}</p>
           </div>
         </div>
 
         {/* BD-1: Autofill Banner with Opt-Out Clear Button */}
         {wasAutofilled && (
-          <div className="bg-blue-50 border border-blue-200 rounded-airbnb-card p-4 flex items-center justify-between shadow-sm">
+          <div className="bg-blue-50/80 border border-blue-200/80 rounded-airbnb-md p-3.5 flex items-center justify-between shadow-sm animate-in fade-in">
             <div className="flex items-center gap-2.5">
-              <Sparkles size={18} className="text-blue-600 flex-shrink-0" />
+              <Sparkles size={16} className="text-blue-600 flex-shrink-0" />
               <div>
-                <p className="text-caption font-bold text-blue-950">
+                <p className="text-[13px] font-semibold text-blue-950">
                   Autofilled from your saved brand profile
                 </p>
-                <p className="text-caption-sm text-blue-800 font-medium">
-                  You can edit any details or clear to start with a blank form
+                <p className="text-[11px] text-blue-700">
+                  You can edit any details or reset to start fresh
                 </p>
               </div>
             </div>
             <button
-              type="button"
               onClick={handleClear}
-              className="text-caption font-bold text-blue-700 hover:text-blue-950 underline flex items-center gap-1.5 flex-shrink-0 cursor-pointer transition-colors active:scale-95"
+              className="text-[12px] font-semibold text-blue-700 hover:text-blue-900 underline flex items-center gap-1 flex-shrink-0"
             >
-              <Trash2 size={13} /> Clear & Start Fresh
+              <Trash2 size={12} /> Clear & Start Fresh
             </button>
           </div>
         )}
 
-        {/* Stepper Progress & Label */}
+        {/* Stepper Dots & Label */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-caption-sm font-semibold text-muted">
+            <span className="text-caption-sm text-muted">
               Step {currentStep} of 4: {['Brand Basics', 'Contact Details', 'Must-Haves & Budget', 'Photos & Notes'][currentStep - 1]}
             </span>
-            <span className="text-caption-sm font-bold text-ink tabular-nums">
+            <span className="text-caption-sm font-semibold text-ink">
               {Math.round((currentStep / 4) * 100)}% Complete
             </span>
           </div>
-          <div className="w-full bg-surface-soft h-2 rounded-full overflow-hidden border border-hairline-soft">
+          <div className="w-full bg-surface-soft h-1.5 rounded-full overflow-hidden">
             <div
               className="bg-rausch h-full transition-all duration-300 ease-out"
               style={{ width: `${(currentStep / 4) * 100}%` }}
@@ -207,10 +205,10 @@ export function BrandProfileForm({
         </div>
 
         {/* Form Body Cards */}
-        <div className="bg-white border border-hairline rounded-airbnb-sheet p-6 sm:p-8 shadow-airbnb space-y-6">
+        <div className="bg-canvas border border-hairline rounded-airbnb-lg p-6 shadow-airbnb space-y-6">
           {/* STEP 1: Brand Basics */}
           {currentStep === 1 && (
-            <div className="space-y-5">
+            <div className="space-y-4">
               <div>
                 <h3 className="text-display-sm font-bold text-ink">Brand Identity</h3>
                 <p className="text-body-sm text-muted">
@@ -219,7 +217,7 @@ export function BrandProfileForm({
               </div>
 
               <div>
-                <label className="text-caption-sm font-bold text-ink block mb-1.5">
+                <label className="text-[12px] font-semibold text-ink block mb-1">
                   Brand Name *
                 </label>
                 <input
@@ -227,23 +225,23 @@ export function BrandProfileForm({
                   placeholder="e.g. Indigo Threads Co."
                   value={name}
                   onChange={e => setName(e.target.value)}
-                  className={`w-full h-12 px-4 rounded-airbnb-md border bg-white text-body-md text-ink placeholder:text-muted-soft focus:outline-none focus:border-ink focus:ring-1 focus:ring-ink transition-colors ${
-                    errors.name ? 'border-error-text' : 'border-hairline hover:border-hairline-dark'
+                  className={`w-full h-12 px-3.5 rounded-airbnb-sm border bg-canvas text-body-md text-ink placeholder:text-muted-soft focus:outline-none focus:border-ink ${
+                    errors.name ? 'border-error-text' : 'border-hairline'
                   }`}
                 />
                 {errors.name && (
-                  <p className="text-caption-sm text-error-text mt-1 font-medium">{errors.name}</p>
+                  <p className="text-[11px] text-error-text mt-1">{errors.name}</p>
                 )}
               </div>
 
               <div>
-                <label className="text-caption-sm font-bold text-ink block mb-1.5">
+                <label className="text-[12px] font-semibold text-ink block mb-1">
                   Primary Category *
                 </label>
                 <select
                   value={category}
                   onChange={e => setCategory(e.target.value)}
-                  className="w-full h-12 px-4 rounded-airbnb-md border border-hairline hover:border-hairline-dark bg-white text-body-md text-ink focus:outline-none focus:border-ink focus:ring-1 focus:ring-ink transition-colors cursor-pointer"
+                  className="w-full h-12 px-3.5 rounded-airbnb-sm border border-hairline bg-canvas text-body-md text-ink focus:outline-none focus:border-ink"
                 >
                   <option value="Fashion">Fashion & Apparel</option>
                   <option value="Jewellery">Contemporary & Traditional Jewellery</option>
@@ -255,7 +253,7 @@ export function BrandProfileForm({
               </div>
 
               <div>
-                <label className="text-caption-sm font-bold text-ink block mb-1.5">
+                <label className="text-[12px] font-semibold text-ink block mb-1">
                   Short Brand Bio *
                 </label>
                 <textarea
@@ -263,12 +261,12 @@ export function BrandProfileForm({
                   placeholder="What products do you make? What materials or craft techniques do you use?"
                   value={description}
                   onChange={e => setDescription(e.target.value)}
-                  className={`w-full p-4 rounded-airbnb-md border bg-white text-body-md text-ink placeholder:text-muted-soft focus:outline-none focus:border-ink focus:ring-1 focus:ring-ink transition-colors resize-none ${
-                    errors.description ? 'border-error-text' : 'border-hairline hover:border-hairline-dark'
+                  className={`w-full p-3.5 rounded-airbnb-sm border bg-canvas text-body-md text-ink placeholder:text-muted-soft focus:outline-none focus:border-ink resize-none ${
+                    errors.description ? 'border-error-text' : 'border-hairline'
                   }`}
                 />
                 {errors.description && (
-                  <p className="text-caption-sm text-error-text mt-1 font-medium">{errors.description}</p>
+                  <p className="text-[11px] text-error-text mt-1">{errors.description}</p>
                 )}
               </div>
             </div>
@@ -276,7 +274,7 @@ export function BrandProfileForm({
 
           {/* STEP 2: Contact Details */}
           {currentStep === 2 && (
-            <div className="space-y-5">
+            <div className="space-y-4">
               <div>
                 <h3 className="text-display-sm font-bold text-ink">Contact Details</h3>
                 <p className="text-body-sm text-muted">
@@ -285,7 +283,7 @@ export function BrandProfileForm({
               </div>
 
               <div>
-                <label className="text-caption-sm font-bold text-ink block mb-1.5">
+                <label className="text-[12px] font-semibold text-ink block mb-1">
                   Contact Person *
                 </label>
                 <input
@@ -293,17 +291,17 @@ export function BrandProfileForm({
                   placeholder="Your full name"
                   value={contactPerson}
                   onChange={e => setContactPerson(e.target.value)}
-                  className={`w-full h-12 px-4 rounded-airbnb-md border bg-white text-body-md text-ink placeholder:text-muted-soft focus:outline-none focus:border-ink focus:ring-1 focus:ring-ink transition-colors ${
-                    errors.contactPerson ? 'border-error-text' : 'border-hairline hover:border-hairline-dark'
+                  className={`w-full h-12 px-3.5 rounded-airbnb-sm border bg-canvas text-body-md text-ink placeholder:text-muted-soft focus:outline-none focus:border-ink ${
+                    errors.contactPerson ? 'border-error-text' : 'border-hairline'
                   }`}
                 />
                 {errors.contactPerson && (
-                  <p className="text-caption-sm text-error-text mt-1 font-medium">{errors.contactPerson}</p>
+                  <p className="text-[11px] text-error-text mt-1">{errors.contactPerson}</p>
                 )}
               </div>
 
               <div>
-                <label className="text-caption-sm font-bold text-ink block mb-1.5">
+                <label className="text-[12px] font-semibold text-ink block mb-1">
                   WhatsApp Number *
                 </label>
                 <input
@@ -311,18 +309,18 @@ export function BrandProfileForm({
                   placeholder="+91 98765 43210"
                   value={phone}
                   onChange={e => setPhone(e.target.value)}
-                  className={`w-full h-12 px-4 rounded-airbnb-md border bg-white text-body-md text-ink placeholder:text-muted-soft focus:outline-none focus:border-ink focus:ring-1 focus:ring-ink transition-colors ${
-                    errors.phone ? 'border-error-text' : 'border-hairline hover:border-hairline-dark'
+                  className={`w-full h-12 px-3.5 rounded-airbnb-sm border bg-canvas text-body-md text-ink placeholder:text-muted-soft focus:outline-none focus:border-ink ${
+                    errors.phone ? 'border-error-text' : 'border-hairline'
                   }`}
                 />
                 {errors.phone && (
-                  <p className="text-caption-sm text-error-text mt-1 font-medium">{errors.phone}</p>
+                  <p className="text-[11px] text-error-text mt-1">{errors.phone}</p>
                 )}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-caption-sm font-bold text-ink block mb-1.5">
+                  <label className="text-[12px] font-semibold text-ink block mb-1">
                     Email Address *
                   </label>
                   <input
@@ -330,17 +328,17 @@ export function BrandProfileForm({
                     placeholder="brand@domain.com"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    className={`w-full h-12 px-4 rounded-airbnb-md border bg-white text-body-md text-ink placeholder:text-muted-soft focus:outline-none focus:border-ink focus:ring-1 focus:ring-ink transition-colors ${
-                      errors.email ? 'border-error-text' : 'border-hairline hover:border-hairline-dark'
+                    className={`w-full h-12 px-3.5 rounded-airbnb-sm border bg-canvas text-body-md text-ink placeholder:text-muted-soft focus:outline-none focus:border-ink ${
+                      errors.email ? 'border-error-text' : 'border-hairline'
                     }`}
                   />
                   {errors.email && (
-                    <p className="text-caption-sm text-error-text mt-1 font-medium">{errors.email}</p>
+                    <p className="text-[11px] text-error-text mt-1">{errors.email}</p>
                   )}
                 </div>
 
                 <div>
-                  <label className="text-caption-sm font-bold text-ink block mb-1.5">
+                  <label className="text-[12px] font-semibold text-ink block mb-1">
                     Instagram Handle (Optional)
                   </label>
                   <input
@@ -348,7 +346,7 @@ export function BrandProfileForm({
                     placeholder="@yourbrand"
                     value={instagram}
                     onChange={e => setInstagram(e.target.value)}
-                    className="w-full h-12 px-4 rounded-airbnb-md border border-hairline hover:border-hairline-dark bg-white text-body-md text-ink placeholder:text-muted-soft focus:outline-none focus:border-ink focus:ring-1 focus:ring-ink transition-colors"
+                    className="w-full h-12 px-3.5 rounded-airbnb-sm border border-hairline bg-canvas text-body-md text-ink placeholder:text-muted-soft focus:outline-none focus:border-ink"
                   />
                 </div>
               </div>
@@ -366,13 +364,13 @@ export function BrandProfileForm({
               </div>
 
               <div>
-                <label className="text-caption-sm font-bold text-ink block mb-1.5">
+                <label className="text-[12px] font-semibold text-ink block mb-1">
                   Average Product Price Range
                 </label>
                 <select
                   value={avgProductPrice}
                   onChange={e => setAvgProductPrice(e.target.value)}
-                  className="w-full h-12 px-4 rounded-airbnb-md border border-hairline hover:border-hairline-dark bg-white text-body-md text-ink focus:outline-none focus:border-ink focus:ring-1 focus:ring-ink transition-colors cursor-pointer"
+                  className="w-full h-12 px-3.5 rounded-airbnb-sm border border-hairline bg-canvas text-body-md text-ink focus:outline-none focus:border-ink"
                 >
                   <option value="Under ₹500">Under ₹500 (Affordable)</option>
                   <option value="₹500–₹2,500">₹500–₹2,500 (Mid-Range Premium)</option>
@@ -382,7 +380,7 @@ export function BrandProfileForm({
               </div>
 
               <div>
-                <label className="text-caption-sm font-bold text-ink block mb-2">
+                <label className="text-[12px] font-semibold text-ink block mb-2">
                   Select Your Stall Must-Haves
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -393,18 +391,18 @@ export function BrandProfileForm({
                         type="button"
                         key={opt}
                         onClick={() => toggleMustHave(opt)}
-                        className={`flex items-center gap-3 p-3.5 rounded-airbnb-card border text-left text-body-sm transition-all active:scale-[0.98] cursor-pointer ${
+                        className={`flex items-center gap-2.5 p-3 rounded-airbnb-sm border text-left text-body-sm transition-all ${
                           isChecked
-                            ? 'border-ink bg-surface-soft font-bold text-ink shadow-sm'
-                            : 'border-hairline hover:bg-surface-soft hover:border-hairline-dark text-ink font-semibold'
+                            ? 'border-ink bg-surface-soft font-semibold text-ink'
+                            : 'border-hairline hover:bg-surface-soft/50 text-muted'
                         }`}
                       >
                         <div
-                          className={`w-5 h-5 rounded-airbnb-xs border flex items-center justify-center transition-colors flex-shrink-0 ${
-                            isChecked ? 'bg-ink border-ink text-white' : 'border-hairline-dark bg-white'
+                          className={`w-4 h-4 rounded border flex items-center justify-center ${
+                            isChecked ? 'bg-ink border-ink text-white' : 'border-muted-soft'
                           }`}
                         >
-                          {isChecked && <Check size={12} strokeWidth={3} />}
+                          {isChecked && <Check size={11} strokeWidth={3} />}
                         </div>
                         <span className="text-[13px]">{opt}</span>
                       </button>
@@ -426,48 +424,48 @@ export function BrandProfileForm({
               </div>
 
               <div>
-                <label className="text-caption-sm font-bold text-ink block mb-2">
+                <label className="text-[12px] font-semibold text-ink block mb-2">
                   Product / Stall Photos ({photos.length} uploaded)
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {photos.map((url, i) => (
                     <div
                       key={i}
-                      className="aspect-square rounded-airbnb-card overflow-hidden bg-surface-soft border border-hairline relative group shadow-sm"
+                      className="aspect-square rounded-airbnb-md overflow-hidden bg-surface-soft border border-hairline relative group"
                     >
                       <img src={url} alt="Product" className="w-full h-full object-cover" />
                     </div>
                   ))}
-                  <div className="aspect-square rounded-airbnb-card border border-dashed border-hairline-dark bg-surface-soft hover:bg-surface-strong hover:border-ink flex flex-col items-center justify-center text-muted hover:text-ink cursor-pointer transition-all active:scale-95">
-                    <Upload size={20} className="mb-1 text-ink" />
-                    <span className="text-caption-sm font-bold text-ink">+ Add Photo</span>
+                  <div className="aspect-square rounded-airbnb-md border border-dashed border-hairline bg-surface-soft flex flex-col items-center justify-center text-muted hover:text-ink cursor-pointer transition-colors">
+                    <Upload size={20} className="mb-1" />
+                    <span className="text-[11px] font-medium">+ Add Photo</span>
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="text-caption-sm font-bold text-ink block mb-1.5">
+                <label className="text-[12px] font-semibold text-ink block mb-1">
                   Message to Organizer
                 </label>
                 <textarea
                   rows={4}
                   value={message}
                   onChange={e => setMessage(e.target.value)}
-                  className="w-full p-4 rounded-airbnb-md border border-hairline hover:border-hairline-dark bg-white text-body-md text-ink focus:outline-none focus:border-ink focus:ring-1 focus:ring-ink transition-colors resize-none"
+                  className="w-full p-3.5 rounded-airbnb-sm border border-hairline bg-canvas text-body-md text-ink focus:outline-none focus:border-ink resize-none"
                 />
               </div>
             </div>
           )}
 
           {/* Navigation Controls */}
-          <div className="pt-5 border-t border-hairline flex items-center justify-between">
+          <div className="pt-4 border-t border-hairline flex items-center justify-between">
             {currentStep > 1 ? (
               <button
                 type="button"
                 onClick={prevStep}
-                className="px-6 py-3 rounded-airbnb-card border border-hairline bg-white hover:bg-surface-soft active:bg-surface-strong text-button-sm font-bold text-ink transition-all active:scale-[0.98] cursor-pointer shadow-sm"
+                className="px-5 py-2.5 rounded-airbnb-sm border border-hairline hover:bg-surface-soft text-body-sm font-semibold text-ink transition-all active:scale-95"
               >
-                ← Back
+                Back
               </button>
             ) : (
               <div />
@@ -477,15 +475,15 @@ export function BrandProfileForm({
               <button
                 type="button"
                 onClick={nextStep}
-                className="px-8 py-3 rounded-airbnb-card bg-ink hover:bg-black active:bg-ink text-white text-button-sm font-bold shadow-sm transition-all active:scale-[0.98] cursor-pointer"
+                className="px-6 py-2.5 rounded-airbnb-sm bg-ink hover:bg-black text-white text-body-sm font-semibold shadow-sm transition-all active:scale-95"
               >
-                Continue →
+                Continue
               </button>
             ) : (
               <button
                 type="button"
                 onClick={handleFinish}
-                className="px-8 py-3 rounded-airbnb-card bg-rausch hover:bg-rausch-hover active:bg-rausch-active text-white text-button-sm font-bold shadow-md transition-all active:scale-[0.98] cursor-pointer"
+                className="px-6 py-2.5 rounded-airbnb-sm bg-rausch hover:bg-rausch-hover active:bg-rausch-active text-white text-body-sm font-semibold shadow-md transition-all active:scale-95 cursor-pointer"
               >
                 Review Enquiry →
               </button>

@@ -26,7 +26,7 @@ const categories = [
 
 export function CategoryStrip({ activeCategory, onSelectCategory }: CategoryStripProps) {
   return (
-    <div className="border-b border-hairline bg-white sticky top-[132px] sm:top-[69px] z-20">
+    <div className="border-b border-zinc-200/80 bg-white sticky top-[69px] z-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex items-center gap-6 sm:gap-8 overflow-x-auto no-scrollbar py-3.5">
           {categories.map(cat => {
@@ -37,20 +37,20 @@ export function CategoryStrip({ activeCategory, onSelectCategory }: CategoryStri
                 key={cat.id}
                 type="button"
                 onClick={() => onSelectCategory(cat.id)}
-                className={`flex flex-col items-center gap-1.5 flex-shrink-0 group pb-2 relative transition-all duration-150 active:scale-95 cursor-pointer ${
-                  isActive ? 'text-ink' : 'text-muted hover:text-ink'
+                className={`flex flex-col items-center gap-1.5 flex-shrink-0 group pb-2 relative transition-all duration-150 cursor-pointer ${
+                  isActive ? 'text-zinc-900' : 'text-zinc-500 hover:text-zinc-900'
                 }`}
               >
                 <div
                   className={`w-7 h-7 flex items-center justify-center transition-colors ${
-                    isActive ? 'text-ink scale-105' : 'text-muted-soft group-hover:text-ink'
+                    isActive ? 'text-zinc-900 scale-105' : 'text-zinc-400 group-hover:text-zinc-700'
                   }`}
                 >
                   <Icon size={20} strokeWidth={isActive ? 2.4 : 1.8} />
                 </div>
                 <span
                   className={`text-[12px] whitespace-nowrap transition-colors ${
-                    isActive ? 'font-bold text-ink' : 'font-semibold text-muted group-hover:text-ink'
+                    isActive ? 'font-bold text-zinc-900' : 'font-medium text-zinc-500 group-hover:text-zinc-800'
                   }`}
                 >
                   {cat.label}
@@ -58,7 +58,7 @@ export function CategoryStrip({ activeCategory, onSelectCategory }: CategoryStri
 
                 {/* Airbnb Style Active Underline Rule */}
                 {isActive && (
-                  <span className="absolute bottom-0 left-1 right-1 h-[2.5px] bg-ink rounded-full" />
+                  <span className="absolute bottom-0 left-1 right-1 h-[2.5px] bg-zinc-900 rounded-full" />
                 )}
               </button>
             );

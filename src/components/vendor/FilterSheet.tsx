@@ -76,31 +76,31 @@ export function FilterSheet({
 
       {/* 2. Modal Sheet (SOLID 100% OPAQUE WHITE CONTAINER - NO TRANSPARENCY) */}
       <div
-        className="relative w-full max-w-xl bg-white rounded-t-airbnb-sheet sm:rounded-airbnb-sheet border border-hairline shadow-airbnb-modal flex flex-col max-h-[90vh] z-10 overflow-hidden"
+        className="relative w-full max-w-xl bg-white rounded-t-3xl sm:rounded-2xl border border-zinc-200 shadow-2xl flex flex-col max-h-[90vh] z-10 overflow-hidden"
         style={{ backgroundColor: '#FFFFFF' }}
       >
         {/* Header */}
-        <div className="px-6 py-4 border-b border-hairline flex items-center justify-between bg-white flex-shrink-0">
+        <div className="px-6 py-4 border-b border-zinc-200 flex items-center justify-between bg-white flex-shrink-0">
           <button
             type="button"
             onClick={onClose}
-            className="w-10 h-10 rounded-full border border-hairline bg-white hover:bg-surface-soft active:bg-surface-strong flex items-center justify-center text-ink transition-all active:scale-90 cursor-pointer shadow-sm"
+            className="w-8 h-8 rounded-full border border-zinc-200 hover:bg-zinc-100 flex items-center justify-center text-zinc-700 transition-colors cursor-pointer"
             aria-label="Close filters"
           >
             <X size={17} />
           </button>
           <div className="flex items-center gap-2">
-            <SlidersHorizontal size={16} className="text-ink" />
-            <h2 className="text-title-md font-bold text-ink">Filters</h2>
+            <SlidersHorizontal size={16} className="text-zinc-700" />
+            <h2 className="text-[16px] font-bold text-zinc-900">Filters</h2>
           </div>
-          <div className="w-9" />
+          <div className="w-8" />
         </div>
 
         {/* Scrollable Filter Form */}
-        <div className="p-6 overflow-y-auto space-y-6 flex-1 bg-white divide-y divide-hairline-soft">
+        <div className="p-6 overflow-y-auto space-y-6 flex-1 bg-white divide-y divide-zinc-100">
           {/* City Selection */}
           <div className="space-y-3">
-            <h3 className="text-title-sm font-bold text-ink">City / Location</h3>
+            <h3 className="text-[14px] font-bold text-zinc-900">City / Location</h3>
             <div className="flex flex-wrap gap-2">
               {cities.map(c => {
                 const active = selectedCity === c.id;
@@ -111,8 +111,8 @@ export function FilterSheet({
                     onClick={() => onSelectCity(c.id)}
                     className={`px-4 py-2 rounded-full text-[13px] font-semibold border transition-all duration-150 active:scale-95 cursor-pointer ${
                       active
-                        ? 'bg-ink text-white border-ink shadow-sm font-bold'
-                        : 'bg-white text-ink border-hairline hover:border-ink hover:bg-surface-soft'
+                        ? 'bg-zinc-900 text-white border-zinc-900 shadow-sm'
+                        : 'bg-white text-zinc-700 border-zinc-300 hover:border-zinc-900'
                     }`}
                   >
                     {c.label}
@@ -124,7 +124,7 @@ export function FilterSheet({
 
           {/* Category Filter */}
           <div className="pt-6 space-y-3">
-            <h3 className="text-title-sm font-bold text-ink">Event Category</h3>
+            <h3 className="text-[14px] font-bold text-zinc-900">Event Category</h3>
             <div className="flex flex-wrap gap-2">
               {categories.map(cat => {
                 const active = selectedCategory === cat.id;
@@ -135,8 +135,8 @@ export function FilterSheet({
                     onClick={() => onSelectCategory(cat.id)}
                     className={`px-4 py-2 rounded-full text-[13px] font-semibold border transition-all duration-150 active:scale-95 cursor-pointer ${
                       active
-                        ? 'bg-ink text-white border-ink shadow-sm font-bold'
-                        : 'bg-white text-ink border-hairline hover:border-ink hover:bg-surface-soft'
+                        ? 'bg-zinc-900 text-white border-zinc-900 shadow-sm'
+                        : 'bg-white text-zinc-700 border-zinc-300 hover:border-zinc-900'
                     }`}
                   >
                     {cat.label}
@@ -149,8 +149,8 @@ export function FilterSheet({
           {/* Budget Slider */}
           <div className="pt-6 space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-title-sm font-bold text-ink">Max Stall Budget</h3>
-              <span className="text-title-sm font-bold text-ink tabular-nums bg-surface-soft px-3.5 py-1 rounded-full border border-hairline">
+              <h3 className="text-[14px] font-bold text-zinc-900">Max Stall Budget</h3>
+              <span className="text-[16px] font-bold text-zinc-900 tabular-nums bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200">
                 ₹{maxBudget.toLocaleString('en-IN')}
               </span>
             </div>
@@ -161,9 +161,9 @@ export function FilterSheet({
               step={5000}
               value={maxBudget}
               onChange={e => onSelectMaxBudget(Number(e.target.value))}
-              className="w-full accent-rausch cursor-pointer h-2 bg-hairline rounded-lg"
+              className="w-full accent-[#FF385C] cursor-pointer h-2 bg-zinc-200 rounded-lg"
             />
-            <div className="flex justify-between text-[12px] font-medium text-muted">
+            <div className="flex justify-between text-[12px] font-medium text-zinc-500">
               <span>₹15,000</span>
               <span>₹1,00,000+</span>
             </div>
@@ -172,16 +172,16 @@ export function FilterSheet({
           {/* Only Available Toggle */}
           <div className="pt-6 flex items-center justify-between">
             <div>
-              <p className="text-title-sm font-bold text-ink">Available Stalls Only</p>
-              <p className="text-caption-sm text-muted">Hide exhibitions that are completely booked</p>
+              <p className="text-[14px] font-bold text-zinc-900">Available Stalls Only</p>
+              <p className="text-[12px] text-zinc-500">Hide exhibitions that are completely booked</p>
             </div>
             <button
               type="button"
               onClick={onToggleOnlyAvailable}
               className={`w-13 h-7 rounded-full p-1 transition-colors duration-200 flex items-center cursor-pointer border ${
                 onlyAvailable
-                  ? 'bg-ink border-ink justify-end'
-                  : 'bg-hairline border-border-strong justify-start'
+                  ? 'bg-zinc-900 border-zinc-900 justify-end'
+                  : 'bg-zinc-200 border-zinc-300 justify-start'
               }`}
               style={{ width: '52px' }}
             >
@@ -191,18 +191,18 @@ export function FilterSheet({
         </div>
 
         {/* Footer Actions (Solid White) */}
-        <div className="px-6 py-4 border-t border-hairline bg-white flex items-center justify-between flex-shrink-0">
+        <div className="px-6 py-4 border-t border-zinc-200 bg-white flex items-center justify-between flex-shrink-0">
           <button
             type="button"
             onClick={onReset}
-            className="text-caption font-bold text-ink hover:text-black active:text-muted underline cursor-pointer transition-colors"
+            className="text-[13px] font-bold text-zinc-700 hover:text-zinc-900 underline cursor-pointer"
           >
             Clear all
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="px-6 py-3 rounded-airbnb-card bg-rausch hover:bg-rausch-hover active:bg-rausch-active text-white font-bold text-button-sm shadow-md transition-all active:scale-95 cursor-pointer"
+            className="px-6 py-3 rounded-xl bg-rausch hover:bg-rausch-hover text-white font-bold text-[14px] shadow-md transition-all active:scale-[0.98] cursor-pointer"
           >
             Show {totalFilteredCount} {totalFilteredCount === 1 ? 'Exhibition' : 'Exhibitions'}
           </button>

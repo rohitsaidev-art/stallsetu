@@ -77,26 +77,26 @@ export function EventDetail({
   return (
     <div className="bg-white min-h-screen pb-28 text-zinc-900">
       {/* Top Breadcrumb Header */}
-      <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-hairline px-4 sm:px-8 py-3.5 flex items-center justify-between">
+      <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-zinc-200 px-4 sm:px-8 py-3.5 flex items-center justify-between">
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-hairline bg-white hover:bg-surface-soft active:bg-surface-strong text-caption font-bold text-ink shadow-sm transition-all active:scale-95 cursor-pointer"
+          className="flex items-center gap-2 text-[14px] font-bold text-zinc-900 hover:text-rausch transition-colors cursor-pointer"
         >
-          <ArrowLeft size={16} />
-          <span>← All Exhibitions</span>
+          <ArrowLeft size={18} />
+          <span>All Exhibitions</span>
         </button>
 
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={e => onToggleWishlist(event.id, e)}
-            className="w-9 h-9 rounded-full border border-hairline bg-white hover:bg-surface-soft active:bg-surface-strong flex items-center justify-center text-ink transition-all active:scale-90 cursor-pointer shadow-sm"
+            className="w-9 h-9 rounded-full border border-zinc-200 hover:bg-zinc-100 flex items-center justify-center text-zinc-900 transition-all active:scale-90 cursor-pointer"
             aria-label="Save to wishlist"
           >
             <Heart
               size={17}
-              className={isWishlisted ? 'fill-rausch text-rausch stroke-rausch' : 'text-ink stroke-[2.2]'}
+              className={isWishlisted ? 'fill-rausch text-rausch' : 'text-zinc-700'}
             />
           </button>
           <button
@@ -109,7 +109,7 @@ export function EventDetail({
                 alert('Event link copied to clipboard!');
               }
             }}
-            className="w-9 h-9 rounded-full border border-hairline bg-white hover:bg-surface-soft active:bg-surface-strong flex items-center justify-center text-ink transition-all active:scale-90 cursor-pointer shadow-sm"
+            className="w-9 h-9 rounded-full border border-zinc-200 hover:bg-zinc-100 flex items-center justify-center text-zinc-900 transition-colors cursor-pointer"
             aria-label="Share event"
           >
             <Share2 size={17} />
@@ -120,17 +120,17 @@ export function EventDetail({
       <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-6">
         {/* Title & Trust Header */}
         <div className="mb-6 space-y-1.5">
-          <h1 className="text-display-lg sm:text-display-xl font-bold text-ink tracking-tight leading-tight">
+          <h1 className="text-[24px] sm:text-[32px] font-bold text-zinc-900 tracking-tight leading-tight">
             {event.name}
           </h1>
-          <div className="flex flex-wrap items-center gap-2 text-caption-sm text-muted font-medium">
-            <span className="font-bold text-ink">★ {event.organizer.rating}</span>
+          <div className="flex flex-wrap items-center gap-2 text-[13px] text-zinc-600 font-medium">
+            <span className="font-bold text-zinc-900">★ {event.organizer.rating}</span>
             <span>·</span>
-            <span className="underline cursor-pointer hover:text-ink">{event.organizer.reviewCount} reviews</span>
+            <span className="underline cursor-pointer">{event.organizer.reviewCount} reviews</span>
             <span>·</span>
-            <span className="text-ink font-semibold">{event.city}, India</span>
+            <span className="text-zinc-900 font-semibold">{event.city}, India</span>
             <span>·</span>
-            <span className="inline-flex items-center gap-1 text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full text-badge font-bold border border-emerald-200">
+            <span className="inline-flex items-center gap-1 text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full text-[12px] font-bold border border-emerald-200">
               <ShieldCheck size={14} /> Verified Organizer
             </span>
           </div>
@@ -141,9 +141,9 @@ export function EventDetail({
            ========================================================================= */}
         <div className="relative mb-10">
           {/* Desktop 2×2 Grid */}
-          <div className="hidden sm:grid grid-cols-2 gap-3 h-[440px] rounded-airbnb-card overflow-hidden border border-hairline shadow-sm">
+          <div className="hidden sm:grid grid-cols-2 gap-3 h-[440px] rounded-2xl overflow-hidden border border-zinc-200/80 shadow-sm">
             {/* Left large photo */}
-            <div className="relative h-full overflow-hidden bg-surface-soft">
+            <div className="relative h-full overflow-hidden bg-zinc-100">
               <img
                 src={event.photos[0] || event.coverImage}
                 alt={`${event.name} photo 1`}
@@ -153,21 +153,21 @@ export function EventDetail({
 
             {/* Right 2x2 sub-grid */}
             <div className="grid grid-cols-2 grid-rows-2 gap-3 h-full">
-              <div className="relative overflow-hidden bg-surface-soft">
+              <div className="relative overflow-hidden bg-zinc-100">
                 <img
                   src={event.photos[1] || event.coverImage}
                   alt={`${event.name} photo 2`}
                   className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-300"
                 />
               </div>
-              <div className="relative overflow-hidden bg-surface-soft">
+              <div className="relative overflow-hidden bg-zinc-100">
                 <img
                   src={event.photos[2] || event.coverImage}
                   alt={`${event.name} photo 3`}
                   className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-300"
                 />
               </div>
-              <div className="relative overflow-hidden bg-surface-soft">
+              <div className="relative overflow-hidden bg-zinc-100">
                 <img
                   src={event.photos[3] || event.coverImage}
                   alt={`${event.name} photo 4`}
@@ -175,7 +175,7 @@ export function EventDetail({
                 />
               </div>
               {/* 4th photo with Floating Pill "Show all photos" */}
-              <div className="relative overflow-hidden bg-surface-soft">
+              <div className="relative overflow-hidden bg-zinc-100">
                 <img
                   src={event.photos[4] || event.coverImage}
                   alt={`${event.name} photo 5`}
@@ -184,7 +184,7 @@ export function EventDetail({
                 <button
                   type="button"
                   onClick={() => setShowGallery(true)}
-                  className="absolute bottom-3 right-3 bg-white hover:bg-surface-soft active:bg-surface-strong text-ink text-[12px] font-bold px-3.5 py-2 rounded-full shadow-airbnb-pill border border-hairline flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer"
+                  className="absolute bottom-3 right-3 bg-white hover:bg-zinc-50 text-zinc-900 text-[12px] font-bold px-3.5 py-2 rounded-full shadow-md border border-zinc-300 flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer"
                 >
                   <Maximize2 size={13} />
                   <span>Show all photos</span>
@@ -194,7 +194,7 @@ export function EventDetail({
           </div>
 
           {/* Mobile Single Photo */}
-          <div className="sm:hidden relative aspect-[4/3] rounded-airbnb-card overflow-hidden bg-surface-soft border border-hairline">
+          <div className="sm:hidden relative aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200">
             <img
               src={event.coverImage}
               alt={event.name}
@@ -203,7 +203,7 @@ export function EventDetail({
             <button
               type="button"
               onClick={() => setShowGallery(true)}
-              className="absolute bottom-3 right-3 bg-white/95 active:bg-surface-strong text-ink text-[12px] font-bold px-3 py-1.5 rounded-full shadow-md border border-hairline flex items-center gap-1 active:scale-95 cursor-pointer"
+              className="absolute bottom-3 right-3 bg-white/95 text-zinc-900 text-[12px] font-bold px-3 py-1.5 rounded-full shadow-md border border-zinc-200 flex items-center gap-1"
             >
               <Maximize2 size={13} />
               <span>{event.photos.length} photos</span>
@@ -216,51 +216,51 @@ export function EventDetail({
            ========================================================================= */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Main Column */}
-          <div className="lg:col-span-8 space-y-8 divide-y divide-hairline">
+          <div className="lg:col-span-8 space-y-8 divide-y divide-zinc-200">
             {/* Quick Highlights (Icon + Text Rows) */}
             <div className="space-y-4 pt-1">
               <div className="flex items-start gap-4">
-                <MapPin className="text-ink mt-1 flex-shrink-0" size={20} />
+                <MapPin className="text-zinc-900 mt-1 flex-shrink-0" size={20} />
                 <div>
-                  <h4 className="text-title-sm font-bold text-ink">Venue & City</h4>
-                  <p className="text-body-sm text-muted">{event.address}</p>
+                  <h4 className="text-[15px] font-bold text-zinc-900">Venue & City</h4>
+                  <p className="text-[14px] text-zinc-600">{event.address}</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <Users className="text-ink mt-1 flex-shrink-0" size={20} />
+                <Users className="text-zinc-900 mt-1 flex-shrink-0" size={20} />
                 <div>
-                  <h4 className="text-title-sm font-bold text-ink">Expected Buyer Footfall</h4>
-                  <p className="text-body-sm text-muted">
+                  <h4 className="text-[15px] font-bold text-zinc-900">Expected Buyer Footfall</h4>
+                  <p className="text-[14px] text-zinc-600">
                     {event.footfall} expected across 2 exhibition days.
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <Clock className="text-ink mt-1 flex-shrink-0" size={20} />
+                <Clock className="text-zinc-900 mt-1 flex-shrink-0" size={20} />
                 <div>
-                  <h4 className="text-title-sm font-bold text-ink">Event Timings</h4>
-                  <p className="text-body-sm text-muted">{event.timings} daily</p>
+                  <h4 className="text-[15px] font-bold text-zinc-900">Event Timings</h4>
+                  <p className="text-[14px] text-zinc-600">{event.timings} daily</p>
                 </div>
               </div>
             </div>
 
             {/* Organizer Profile Card */}
             <div className="pt-8 space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-airbnb-card bg-surface-soft border border-hairline">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-zinc-50 border border-zinc-200">
                 <div className="flex items-center gap-3">
                   <img
                     src={event.organizer.avatar}
                     alt={event.organizer.name}
-                    className="w-13 h-13 rounded-full object-cover ring-2 ring-hairline-dark"
+                    className="w-13 h-13 rounded-full object-cover ring-2 ring-zinc-300"
                     style={{ width: '52px', height: '52px' }}
                   />
                   <div>
-                    <h3 className="text-title-md font-bold text-ink">
+                    <h3 className="text-[16px] font-bold text-zinc-900">
                       Hosted by {event.organizer.name}
                     </h3>
-                    <p className="text-caption-sm text-muted">
+                    <p className="text-[13px] text-zinc-600">
                       {event.organizer.organization} · {event.organizer.eventsHosted} events organized
                     </p>
                   </div>
@@ -269,9 +269,9 @@ export function EventDetail({
                 <button
                   type="button"
                   onClick={openWhatsApp}
-                  className="px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-caption flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95 cursor-pointer flex-shrink-0"
+                  className="px-4 py-2.5 rounded-xl border border-zinc-300 bg-white hover:bg-zinc-100 text-[13px] font-bold text-zinc-900 flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.98] cursor-pointer"
                 >
-                  <MessageCircle size={16} />
+                  <MessageCircle size={16} className="text-emerald-600" />
                   <span>Chat on WhatsApp</span>
                 </button>
               </div>
@@ -279,8 +279,8 @@ export function EventDetail({
 
             {/* About Event Description */}
             <div className="pt-8 space-y-3">
-              <h3 className="text-display-sm font-bold text-ink">About this exhibition</h3>
-              <p className="text-body-md text-body leading-relaxed font-normal">{event.description}</p>
+              <h3 className="text-[20px] font-bold text-zinc-900">About this exhibition</h3>
+              <p className="text-[15px] text-zinc-700 leading-relaxed font-normal">{event.description}</p>
             </div>
 
             {/* =========================================================================
@@ -289,15 +289,15 @@ export function EventDetail({
             <div className="pt-8 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-display-sm font-bold text-ink">Venue Floor Plan</h3>
-                  <p className="text-caption-sm text-muted">
+                  <h3 className="text-[20px] font-bold text-zinc-900">Venue Floor Plan</h3>
+                  <p className="text-[13px] text-zinc-500">
                     Official layout showing zones, entrances, and stall distribution
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setShowFloorPlan(true)}
-                  className="text-caption font-bold text-rausch hover:underline flex items-center gap-1 cursor-pointer"
+                  className="text-[13px] font-bold text-rausch hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <Maximize2 size={14} /> Full View
                 </button>
@@ -305,7 +305,7 @@ export function EventDetail({
 
               <div
                 onClick={() => setShowFloorPlan(true)}
-                className="relative cursor-pointer group rounded-airbnb-card overflow-hidden bg-surface-soft border border-hairline shadow-sm hover:shadow-airbnb-card-hover transition-all"
+                className="relative cursor-pointer group rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200 shadow-sm hover:shadow-md transition-all"
               >
                 <img
                   src={event.floorPlanImage}
@@ -313,7 +313,7 @@ export function EventDetail({
                   className="w-full h-56 object-cover group-hover:scale-[1.01] transition-transform duration-200"
                 />
                 <div className="absolute inset-0 bg-black/25 group-hover:bg-black/35 transition-colors flex items-center justify-center">
-                  <span className="bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full text-caption font-bold text-ink shadow-md border border-hairline flex items-center gap-2">
+                  <span className="bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full text-[13px] font-bold text-zinc-900 shadow-md flex items-center gap-2">
                     <Maximize2 size={14} /> Tap to expand floor blueprint
                   </span>
                 </div>
@@ -326,8 +326,8 @@ export function EventDetail({
             <div id="stall-inventory" className="pt-8 space-y-5">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <h3 className="text-display-sm font-bold text-ink">Stall Inventory</h3>
-                  <p className="text-caption-sm text-muted">
+                  <h3 className="text-[20px] font-bold text-zinc-900">Stall Inventory</h3>
+                  <p className="text-[13px] text-zinc-500">
                     {availableStalls.length} of {event.stalls.length} stalls currently available
                   </p>
                 </div>
@@ -339,10 +339,10 @@ export function EventDetail({
                       key={cat}
                       type="button"
                       onClick={() => setSelectedStallCategory(cat)}
-                      className={`px-3 py-1.5 rounded-full text-[12px] font-semibold capitalize whitespace-nowrap transition-all active:scale-95 cursor-pointer ${
+                      className={`px-3 py-1.5 rounded-full text-[12px] font-semibold capitalize whitespace-nowrap transition-all cursor-pointer ${
                         selectedStallCategory === cat
-                          ? 'bg-ink text-white font-bold shadow-sm'
-                          : 'bg-white text-muted hover:text-ink hover:bg-surface-soft border border-hairline'
+                          ? 'bg-zinc-900 text-white shadow-sm'
+                          : 'bg-zinc-100 text-zinc-600 hover:text-zinc-900 border border-zinc-200'
                       }`}
                     >
                       {cat}
@@ -358,29 +358,29 @@ export function EventDetail({
                   return (
                     <div
                       key={stall.id}
-                      className={`p-4 sm:p-5 rounded-airbnb-card border transition-all ${
+                      className={`p-4 sm:p-5 rounded-2xl border transition-all ${
                         isAvail
-                          ? 'bg-white border-hairline hover:border-ink hover:shadow-sm'
-                          : 'bg-surface-soft border-hairline opacity-60'
+                          ? 'bg-white border-zinc-200 hover:border-zinc-900 shadow-sm'
+                          : 'bg-zinc-50 border-zinc-200 opacity-60'
                       }`}
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
-                            <span className="text-[17px] font-mono font-bold text-ink">
+                            <span className="text-[17px] font-mono font-bold text-zinc-900">
                               Stall {stall.label}
                             </span>
                             <StallStatusBadge status={stall.status} />
-                            <span className="text-[11px] font-bold text-ink bg-surface-soft px-2.5 py-0.5 rounded-full border border-hairline">
+                            <span className="text-[11px] font-bold text-zinc-600 bg-zinc-100 px-2.5 py-0.5 rounded-full border border-zinc-200">
                               {stall.category}
                             </span>
                           </div>
 
-                          <p className="text-body-sm text-muted">
-                            Dimensions: <strong className="text-ink font-bold">{stall.size}</strong>
+                          <p className="text-[14px] text-zinc-600">
+                            Dimensions: <strong className="text-zinc-900 font-bold">{stall.size}</strong>
                           </p>
 
-                          <div className="flex flex-wrap gap-2 pt-1 text-caption-sm text-muted">
+                          <div className="flex flex-wrap gap-2 pt-1 text-[12px] text-zinc-500">
                             {stall.amenities.map(am => (
                               <span key={am} className="inline-flex items-center gap-1 font-medium">
                                 <CheckCircle size={12} className="text-emerald-600" />
@@ -391,18 +391,18 @@ export function EventDetail({
                         </div>
 
                         {/* Price & Action */}
-                        <div className="flex items-center sm:flex-col sm:items-end justify-between pt-2 sm:pt-0 border-t sm:border-0 border-hairline-soft">
-                          <p className="text-[18px] sm:text-[20px] font-bold text-ink tabular-nums">
+                        <div className="flex items-center sm:flex-col sm:items-end justify-between pt-2 sm:pt-0 border-t sm:border-0 border-zinc-100">
+                          <p className="text-[18px] sm:text-[20px] font-bold text-zinc-900 tabular-nums">
                             ₹{stall.price.toLocaleString('en-IN')}
                           </p>
                           <button
                             type="button"
                             disabled={!isAvail}
                             onClick={() => onSelectStall(stall)}
-                            className={`mt-1.5 px-6 py-2.5 rounded-airbnb-card font-bold text-button-sm transition-all ${
+                            className={`mt-1.5 px-6 py-2.5 rounded-xl font-bold text-[13px] transition-all active:scale-95 cursor-pointer ${
                               isAvail
-                                ? 'bg-rausch hover:bg-rausch-hover active:bg-rausch-active text-white shadow-md active:scale-95 cursor-pointer'
-                                : 'bg-surface-soft border border-hairline text-muted-soft cursor-not-allowed opacity-60'
+                                ? 'bg-rausch hover:bg-rausch-hover text-white shadow-md'
+                                : 'bg-zinc-200 text-zinc-500 cursor-not-allowed'
                             }`}
                           >
                             {isAvail ? 'Select Stall' : 'Occupied'}
@@ -417,12 +417,12 @@ export function EventDetail({
 
             {/* Inclusions */}
             <div className="pt-8 space-y-4">
-              <h3 className="text-display-sm font-bold text-ink">What's included with every stall</h3>
+              <h3 className="text-[20px] font-bold text-zinc-900">What's included with every stall</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {event.includedAmenities.map((amenity, i) => (
-                  <div key={i} className="flex items-center gap-3 p-3.5 rounded-airbnb-card bg-surface-soft border border-hairline">
+                  <div key={i} className="flex items-center gap-3 p-3.5 rounded-xl bg-zinc-50 border border-zinc-200">
                     <CheckCircle size={18} className="text-emerald-600 flex-shrink-0" />
-                    <span className="text-body-sm font-semibold text-ink">{amenity}</span>
+                    <span className="text-[14px] font-semibold text-zinc-900">{amenity}</span>
                   </div>
                 ))}
               </div>
@@ -430,30 +430,30 @@ export function EventDetail({
 
             {/* FAQs Accordion */}
             <div className="pt-8 space-y-3">
-              <h3 className="text-display-sm font-bold text-ink">Frequently asked questions</h3>
+              <h3 className="text-[20px] font-bold text-zinc-900">Frequently asked questions</h3>
               <div className="space-y-2">
                 {event.faqs.map((faq, i) => {
                   const isOpen = expandedFaqIndex === i;
                   return (
                     <div
                       key={i}
-                      className="border border-hairline rounded-airbnb-card overflow-hidden bg-white"
+                      className="border border-zinc-200 rounded-xl overflow-hidden bg-white"
                     >
                       <button
                         type="button"
                         onClick={() => setExpandedFaqIndex(isOpen ? null : i)}
-                        className="w-full px-5 py-4 text-left font-bold text-title-sm text-ink flex items-center justify-between hover:bg-surface-soft active:bg-surface-strong transition-colors cursor-pointer"
+                        className="w-full px-5 py-4 text-left font-bold text-[15px] text-zinc-900 flex items-center justify-between hover:bg-zinc-50 transition-colors cursor-pointer"
                       >
                         <span>{faq.q}</span>
                         <ChevronDown
                           size={18}
-                          className={`text-muted transition-transform duration-200 ${
+                          className={`text-zinc-500 transition-transform duration-200 ${
                             isOpen ? 'rotate-180' : ''
                           }`}
                         />
                       </button>
                       {isOpen && (
-                        <div className="px-5 pb-4 text-body-sm text-muted leading-relaxed border-t border-hairline-soft bg-surface-soft/40 pt-3">
+                        <div className="px-5 pb-4 text-[14px] text-zinc-600 leading-relaxed border-t border-zinc-100 bg-zinc-50/50 pt-3">
                           {faq.a}
                         </div>
                       )}
@@ -466,41 +466,41 @@ export function EventDetail({
 
           {/* Sticky Right-Rail Card (Desktop) */}
           <div className="hidden lg:block lg:col-span-4">
-            <div className="sticky top-24 rounded-airbnb-sheet border border-hairline bg-white p-6 shadow-airbnb-modal space-y-5">
-              <div className="flex items-baseline justify-between border-b border-hairline pb-4">
+            <div className="sticky top-24 rounded-2xl border border-zinc-200 bg-white p-6 shadow-lg space-y-5">
+              <div className="flex items-baseline justify-between border-b border-zinc-100 pb-4">
                 <div>
-                  <span className="text-[12px] text-muted block font-medium">Stall prices from</span>
-                  <span className="text-display-lg font-bold text-ink tabular-nums">
+                  <span className="text-[12px] text-zinc-500 block font-medium">Stall prices from</span>
+                  <span className="text-[24px] font-bold text-zinc-900 tabular-nums">
                     ₹{minPrice.toLocaleString('en-IN')}
                   </span>
                 </div>
-                <span className="text-caption-sm text-muted font-medium">2 days event</span>
+                <span className="text-[13px] text-zinc-500 font-medium">2 days event</span>
               </div>
 
-              <div className="space-y-3 text-body-sm text-muted font-medium">
+              <div className="space-y-3 text-[14px] text-zinc-600 font-medium">
                 <div className="flex justify-between">
                   <span>Available Stalls</span>
-                  <strong className="text-ink font-bold">{availableStalls.length} free</strong>
+                  <strong className="text-zinc-900 font-bold">{availableStalls.length} free</strong>
                 </div>
                 <div className="flex justify-between">
                   <span>Dates</span>
-                  <strong className="text-ink font-bold">{formatDates()}</strong>
+                  <strong className="text-zinc-900 font-bold">{formatDates()}</strong>
                 </div>
                 <div className="flex justify-between">
                   <span>Expected Footfall</span>
-                  <strong className="text-ink font-bold">{event.footfall.split(' ')[0]} visitors</strong>
+                  <strong className="text-zinc-900 font-bold">{event.footfall.split(' ')[0]} visitors</strong>
                 </div>
               </div>
 
               <button
                 type="button"
                 onClick={scrollToStalls}
-                className="w-full py-3.5 rounded-airbnb-card bg-rausch hover:bg-rausch-hover active:bg-rausch-active text-white font-bold text-button-md flex items-center justify-center transition-all shadow-md active:scale-95 cursor-pointer"
+                className="w-full py-3.5 rounded-xl bg-rausch hover:bg-rausch-hover text-white font-bold text-[14px] flex items-center justify-center transition-all shadow-md active:scale-[0.98] cursor-pointer"
               >
                 Browse & Pick a Stall
               </button>
 
-              <p className="text-[11px] text-muted-soft text-center leading-normal">
+              <p className="text-[11px] text-zinc-400 text-center leading-normal">
                 Stalls are held immediately upon enquiry submission. Zero upfront platform booking fees.
               </p>
             </div>
@@ -509,17 +509,17 @@ export function EventDetail({
       </div>
 
       {/* Mobile Sticky Bottom Reservation Bar */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-hairline px-6 py-3.5 flex items-center justify-between shadow-xl">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-zinc-200 px-6 py-3.5 flex items-center justify-between shadow-xl">
         <div>
-          <span className="text-[11px] text-muted block font-medium">From</span>
-          <p className="text-[17px] font-bold text-ink tabular-nums">
+          <span className="text-[11px] text-zinc-500 block font-medium">From</span>
+          <p className="text-[17px] font-bold text-zinc-900 tabular-nums">
             ₹{minPrice.toLocaleString('en-IN')}
           </p>
         </div>
         <button
           type="button"
           onClick={scrollToStalls}
-          className="px-6 py-2.5 rounded-airbnb-card bg-rausch hover:bg-rausch-hover active:bg-rausch-active text-white text-button-sm font-bold shadow-md active:scale-95 transition-all cursor-pointer"
+          className="px-6 py-2.5 rounded-xl bg-rausch hover:bg-rausch-hover text-white text-[14px] font-bold shadow-md active:scale-95 transition-all cursor-pointer"
         >
           Select Stall
         </button>

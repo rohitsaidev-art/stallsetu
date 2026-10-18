@@ -33,17 +33,17 @@ export function GalleryModal({
   return (
     <div className="fixed inset-0 z-50 bg-white overflow-y-auto">
       {/* Sticky Header */}
-      <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-md px-6 py-4 border-b border-hairline flex items-center justify-between">
+      <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-md px-6 py-4 border-b border-zinc-200 flex items-center justify-between">
         <button
           type="button"
           onClick={onClose}
-          className="w-10 h-10 rounded-full border border-hairline bg-white hover:bg-surface-soft active:bg-surface-strong flex items-center justify-center text-ink transition-all active:scale-90 cursor-pointer shadow-sm"
+          className="w-9 h-9 rounded-full border border-zinc-200 hover:bg-zinc-100 flex items-center justify-center text-zinc-900 transition-colors cursor-pointer"
           aria-label="Close photo gallery"
         >
           <X size={18} />
         </button>
-        <p className="text-title-sm font-bold text-ink line-clamp-1 max-w-md">{eventName}</p>
-        <span className="text-caption-sm font-bold text-muted tabular-nums bg-surface-soft px-3.5 py-1 rounded-full border border-hairline">
+        <p className="text-[14px] font-bold text-zinc-900 line-clamp-1 max-w-md">{eventName}</p>
+        <span className="text-[12px] font-semibold text-zinc-500 tabular-nums bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200">
           {photos.length} photos
         </span>
       </div>
@@ -53,7 +53,7 @@ export function GalleryModal({
         {photos.map((url, i) => (
           <div
             key={i}
-            className="w-full rounded-airbnb-card overflow-hidden bg-surface-soft border border-hairline shadow-sm"
+            className="w-full rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200 shadow-md"
           >
             <img
               src={url}

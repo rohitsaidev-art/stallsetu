@@ -23,12 +23,11 @@ export function EnquiryReview({
     <div className="bg-canvas min-h-screen py-10 px-4 sm:px-6">
       <div className="max-w-xl mx-auto space-y-6">
         <button
-          type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-hairline bg-white hover:bg-surface-soft active:bg-surface-strong text-caption font-bold text-ink shadow-sm transition-all active:scale-95 cursor-pointer"
+          className="flex items-center gap-1.5 text-body-sm font-semibold text-ink hover:text-muted transition-colors"
         >
           <ArrowLeft size={16} />
-          <span>← Back to Edit</span>
+          <span>Edit Details</span>
         </button>
 
         <div>
@@ -39,26 +38,26 @@ export function EnquiryReview({
         </div>
 
         {/* Review Card */}
-        <div className="border border-hairline rounded-airbnb-sheet p-6 sm:p-8 bg-white shadow-airbnb space-y-6 divide-y divide-hairline">
+        <div className="border border-hairline rounded-airbnb-lg p-6 bg-canvas shadow-airbnb space-y-6 divide-y divide-hairline">
           {/* Section 1: Event & Stall */}
           <div className="space-y-3 pb-6">
-            <span className="text-badge font-bold text-muted uppercase tracking-wider block">
+            <span className="text-[11px] font-semibold text-muted uppercase tracking-wider block">
               Event & Stall Selection
             </span>
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="text-title-md font-bold text-ink">{event.name}</h3>
-                <p className="text-body-sm text-muted font-medium">{event.venue}, {event.city}</p>
+                <p className="text-body-sm text-muted">{event.venue}, {event.city}</p>
               </div>
               <div className="text-right">
                 <span className="text-title-md font-mono font-bold text-ink block">
                   Stall {stall.label}
                 </span>
-                <span className="text-caption-sm text-muted font-medium">{stall.size}</span>
+                <span className="text-caption-sm text-muted">{stall.size}</span>
               </div>
             </div>
-            <div className="p-4 bg-surface-soft rounded-airbnb-card border border-hairline flex justify-between items-center text-body-sm">
-              <span className="text-muted font-medium">Total Stall Fee</span>
+            <div className="p-3 bg-surface-soft rounded-airbnb-sm flex justify-between items-center text-body-sm">
+              <span className="text-muted">Total Stall Fee</span>
               <strong className="text-display-sm font-bold text-ink tabular-nums">
                 ₹{stall.price.toLocaleString('en-IN')}
               </strong>
@@ -67,30 +66,28 @@ export function EnquiryReview({
 
           {/* Section 2: Brand Information */}
           <div className="pt-6 space-y-3 pb-6">
-            <span className="text-badge font-bold text-muted uppercase tracking-wider block">
+            <span className="text-[11px] font-semibold text-muted uppercase tracking-wider block">
               Your Brand Proposal
             </span>
             <div className="flex items-center justify-between">
               <div>
                 <h4 className="text-title-sm font-bold text-ink">{brand.name}</h4>
-                <p className="text-caption-sm text-muted font-medium">{brand.category} · {brand.instagram || 'No Instagram'}</p>
+                <p className="text-caption-sm text-muted">{brand.category} · {brand.instagram || 'No Instagram'}</p>
               </div>
-              <span className="text-caption-sm text-muted font-semibold bg-surface-soft px-3 py-1 rounded-full border border-hairline">
-                {brand.avgProductPrice}
-              </span>
+              <span className="text-caption-sm text-muted">{brand.avgProductPrice}</span>
             </div>
-            <p className="text-body-sm text-body italic leading-relaxed">"{brand.description}"</p>
+            <p className="text-body-sm text-body italic">"{brand.description}"</p>
 
             {brand.mustHaves.length > 0 && (
               <div className="pt-2">
-                <span className="text-badge font-bold text-muted block mb-2">
+                <span className="text-[11px] font-medium text-muted block mb-1.5">
                   Requested Amenities / Must-Haves:
                 </span>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {brand.mustHaves.map(m => (
                     <span
                       key={m}
-                      className="text-badge font-bold bg-surface-soft border border-hairline px-3 py-1 rounded-full text-ink"
+                      className="text-[11px] font-medium bg-surface-soft px-2.5 py-0.5 rounded-full text-ink"
                     >
                       ✓ {m}
                     </span>
@@ -102,23 +99,23 @@ export function EnquiryReview({
 
           {/* Section 3: Message to Organizer */}
           <div className="pt-6 space-y-2 pb-6">
-            <span className="text-badge font-bold text-muted uppercase tracking-wider block">
+            <span className="text-[11px] font-semibold text-muted uppercase tracking-wider block">
               Personal Note to Organizer
             </span>
-            <p className="text-body-sm text-body leading-relaxed bg-surface-soft p-4 rounded-airbnb-card border border-hairline">
+            <p className="text-body-sm text-body leading-relaxed bg-surface-soft/40 p-3 rounded-airbnb-sm">
               {message}
             </p>
           </div>
 
           {/* Section 4: Contact Recipient */}
-          <div className="pt-6 space-y-1.5">
-            <span className="text-badge font-bold text-muted uppercase tracking-wider block">
+          <div className="pt-6 space-y-1">
+            <span className="text-[11px] font-semibold text-muted uppercase tracking-wider block">
               Follow-Up Channel
             </span>
-            <p className="text-body-sm text-ink font-bold">
+            <p className="text-body-sm text-ink font-medium">
               {brand.contactPerson} ({brand.phone}) · {brand.email}
             </p>
-            <p className="text-caption-sm text-muted leading-relaxed">
+            <p className="text-caption-sm text-muted">
               The organizer will reach out on WhatsApp within 48 hours to confirm stall availability.
             </p>
           </div>
@@ -127,24 +124,14 @@ export function EnquiryReview({
         {/* Submit Action */}
         <div className="space-y-3 pt-2">
           <button
-            type="button"
             onClick={onSubmit}
-            className="w-full py-4 rounded-airbnb-card bg-rausch hover:bg-rausch-hover active:bg-rausch-active text-white text-button-md font-bold shadow-md transition-all active:scale-[0.98] cursor-pointer"
+            className="w-full py-4 rounded-airbnb-sm bg-rausch hover:bg-rausch-hover active:bg-rausch-active text-white text-body-md font-semibold shadow-md transition-all active:scale-[0.98] cursor-pointer"
           >
             Submit Stall Enquiry
           </button>
-          
-          <button
-            type="button"
-            onClick={onBack}
-            className="w-full py-3.5 rounded-airbnb-card border border-hairline bg-white hover:bg-surface-soft active:bg-surface-strong text-ink text-button-sm font-bold shadow-sm transition-all active:scale-[0.98] cursor-pointer"
-          >
-            ← Make Changes to Brand Profile
-          </button>
-
-          <div className="flex items-center justify-center gap-1.5 text-caption-sm text-muted pt-1">
-            <ShieldCheck size={16} className="text-emerald-600" />
-            <span className="font-medium">Zero advance platform charges. Stall held upon submission.</span>
+          <div className="flex items-center justify-center gap-1.5 text-caption-sm text-muted">
+            <ShieldCheck size={14} className="text-emerald-600" />
+            <span>Zero advance platform charges. Stall held upon submission.</span>
           </div>
         </div>
       </div>

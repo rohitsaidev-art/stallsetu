@@ -40,19 +40,19 @@ export function FloorPlanModal({
       />
 
       <div
-        className="relative w-full max-w-4xl bg-white rounded-airbnb-sheet border border-hairline shadow-airbnb-modal flex flex-col max-h-[92vh] z-10 overflow-hidden"
+        className="relative w-full max-w-4xl bg-white rounded-2xl border border-zinc-200 shadow-2xl flex flex-col max-h-[92vh] z-10 overflow-hidden"
         style={{ backgroundColor: '#FFFFFF' }}
       >
         {/* Header */}
-        <div className="px-6 py-4 border-b border-hairline flex items-center justify-between bg-white flex-shrink-0">
+        <div className="px-6 py-4 border-b border-zinc-200 flex items-center justify-between bg-white flex-shrink-0">
           <div>
-            <h2 className="text-title-md font-bold text-ink">Venue Floor Plan & Allocation</h2>
-            <p className="text-caption-sm text-muted">{eventName}</p>
+            <h2 className="text-[16px] font-bold text-zinc-900">Venue Floor Plan & Allocation</h2>
+            <p className="text-[12px] text-zinc-500">{eventName}</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="w-10 h-10 rounded-full border border-hairline bg-white hover:bg-surface-soft active:bg-surface-strong flex items-center justify-center text-ink transition-all active:scale-90 cursor-pointer shadow-sm"
+            className="w-9 h-9 rounded-full border border-zinc-200 hover:bg-zinc-100 flex items-center justify-center text-zinc-900 transition-colors cursor-pointer"
             aria-label="Close floor plan modal"
           >
             <X size={18} />
@@ -60,17 +60,17 @@ export function FloorPlanModal({
         </div>
 
         {/* Blueprint container */}
-        <div className="p-4 sm:p-6 overflow-auto flex-1 flex items-center justify-center bg-surface-soft">
+        <div className="p-4 sm:p-6 overflow-auto flex-1 flex items-center justify-center bg-zinc-50">
           <img
             src={floorPlanUrl}
             alt={`${eventName} Floor Plan`}
-            className="max-w-full max-h-[70vh] object-contain rounded-airbnb-card shadow-md border border-hairline"
+            className="max-w-full max-h-[70vh] object-contain rounded-xl shadow-md border border-zinc-200"
           />
         </div>
 
-        <div className="px-6 py-3.5 border-t border-hairline bg-white flex items-center justify-between text-caption-sm text-muted flex-shrink-0">
-          <span className="font-semibold text-ink">Direction B: Official Organizer Schematic Layout</span>
-          <span className="flex items-center gap-1.5 font-bold text-ink bg-surface-soft px-3 py-1 rounded-full border border-hairline">
+        <div className="px-6 py-3 border-t border-zinc-200 bg-white flex items-center justify-between text-[12px] text-zinc-600 flex-shrink-0">
+          <span className="font-medium">Direction B: Official Organizer Schematic Layout</span>
+          <span className="flex items-center gap-1 font-bold text-zinc-900">
             <ZoomIn size={14} /> Full Resolution
           </span>
         </div>

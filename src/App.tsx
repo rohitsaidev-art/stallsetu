@@ -243,35 +243,33 @@ export default function App() {
           <div className="flex items-center gap-2.5 flex-shrink-0">
             {/* Wishlist filter toggle */}
             <button
-              type="button"
               onClick={() => setWishlistOnly(prev => !prev)}
-              className={`h-9 px-3.5 rounded-full border text-caption flex items-center gap-1.5 transition-all duration-150 active:scale-95 cursor-pointer shadow-sm ${
+              className={`h-9 px-3 rounded-full border text-caption flex items-center gap-1.5 transition-all ${
                 wishlistOnly
-                  ? 'border-rausch bg-rausch-light text-rausch font-bold'
-                  : 'border-hairline bg-white hover:bg-surface-soft active:bg-surface-strong text-ink font-bold'
+                  ? 'border-rausch bg-rausch/10 text-rausch font-semibold'
+                  : 'border-hairline hover:bg-surface-soft text-ink'
               }`}
               title="Saved Events"
             >
               <Heart
                 size={14}
-                className={wishlistOnly ? 'fill-rausch text-rausch stroke-rausch' : 'text-ink stroke-[2.2]'}
+                className={wishlistOnly ? 'fill-rausch text-rausch' : 'text-ink'}
               />
               <span className="hidden sm:inline">Saved</span>
               {store.wishlistIds.length > 0 && (
-                <span className="text-[11px] font-bold tabular-nums">({store.wishlistIds.length})</span>
+                <span className="text-[11px] font-bold">({store.wishlistIds.length})</span>
               )}
             </button>
 
             {/* My Enquiries Button */}
             <button
-              type="button"
               onClick={() => setCurrentScreen('my_enquiries')}
-              className="h-9 px-4 rounded-full bg-ink hover:bg-black active:bg-ink text-white font-bold text-caption flex items-center gap-2 shadow-sm transition-all duration-150 active:scale-95 cursor-pointer"
+              className="h-9 px-3.5 rounded-full bg-ink text-white hover:bg-black font-semibold text-caption flex items-center gap-1.5 shadow-sm transition-all active:scale-95"
             >
               <ClipboardList size={14} />
               <span>My Enquiries</span>
               {store.enquiries.length > 0 && (
-                <span className="bg-rausch text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full tabular-nums">
+                <span className="bg-rausch text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full">
                   {store.enquiries.length}
                 </span>
               )}
@@ -310,7 +308,7 @@ export default function App() {
                 ? 'Curated Exhibitions & Flea Markets'
                 : `Exhibitions in ${selectedCity}`}
             </h2>
-            <p className="text-body-sm text-muted font-medium">
+            <p className="text-body-sm text-muted">
               {filteredEvents.length}{' '}
               {filteredEvents.length === 1 ? 'event opportunity' : 'event opportunities'}{' '}
               available across India
@@ -318,9 +316,8 @@ export default function App() {
           </div>
 
           <button
-            type="button"
             onClick={() => setIsFilterOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-full border border-hairline bg-white hover:bg-surface-soft active:bg-surface-strong text-caption font-bold text-ink shadow-sm transition-all active:scale-95 cursor-pointer"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-full border border-hairline hover:bg-surface-soft text-caption font-semibold text-ink transition-colors"
           >
             <Filter size={14} />
             <span>Filters</span>
@@ -329,8 +326,8 @@ export default function App() {
 
         {/* Event Cards Grid */}
         {filteredEvents.length === 0 ? (
-          <div className="text-center py-20 bg-surface-soft/40 rounded-airbnb-card border border-dashed border-hairline p-8 space-y-3">
-            <h3 className="text-title-md font-bold text-ink">
+          <div className="text-center py-20 bg-surface-soft/40 rounded-airbnb-lg border border-dashed border-hairline p-8 space-y-3">
+            <h3 className="text-title-md font-semibold text-ink">
               {wishlistOnly ? 'No saved exhibitions yet' : 'No exhibitions match your criteria'}
             </h3>
             <p className="text-body-sm text-muted max-w-md mx-auto">
@@ -339,9 +336,8 @@ export default function App() {
                 : 'Try adjusting your city, raising your budget threshold, or clearing selected categories.'}
             </p>
             <button
-              type="button"
               onClick={handleResetFilters}
-              className="mt-2 px-6 py-3 rounded-airbnb-card bg-ink text-white text-button-sm font-bold shadow-sm hover:bg-black active:bg-ink transition-all active:scale-95 cursor-pointer"
+              className="mt-2 px-5 py-2.5 rounded-airbnb-sm bg-ink text-white text-body-sm font-semibold shadow-sm hover:bg-black transition-all active:scale-95 cursor-pointer"
             >
               {wishlistOnly ? 'Explore All Exhibitions' : 'Reset All Filters'}
             </button>

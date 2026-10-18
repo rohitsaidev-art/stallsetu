@@ -43,56 +43,53 @@ export function SuccessScreen({
         </div>
 
         {/* Reference Ticket Card */}
-        <div className="p-5 rounded-airbnb-card border border-hairline bg-surface-soft text-left space-y-3 text-body-sm shadow-sm">
+        <div className="p-4 rounded-airbnb-md border border-hairline bg-surface-soft/60 text-left space-y-2 text-body-sm">
           <div className="flex justify-between items-center">
-            <span className="text-caption-sm text-muted font-medium">Enquiry Reference ID</span>
+            <span className="text-caption-sm text-muted">Enquiry Reference ID</span>
             <span className="font-mono font-bold text-ink">{enquiryId}</span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-caption-sm text-muted font-medium">Stall Status</span>
-            <span className="inline-flex items-center gap-1.5 text-badge font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+            <span className="text-caption-sm text-muted">Stall Status</span>
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full ring-1 ring-amber-500/20">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
               Held (Lock Applied)
             </span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-caption-sm text-muted font-medium">Stall Fee</span>
-            <span className="text-title-md font-bold text-ink tabular-nums">
+            <span className="text-caption-sm text-muted">Stall Fee</span>
+            <span className="font-bold text-ink tabular-nums">
               ₹{stall.price.toLocaleString('en-IN')}
             </span>
           </div>
         </div>
 
         <p className="text-caption-sm text-muted leading-relaxed">
-          Organizer <strong className="text-ink font-bold">{event.organizer.name}</strong> has received your brand profile and will message you on WhatsApp (<strong className="text-ink font-bold">{brand.phone}</strong>) within 48 hours.
+          Organizer <strong>{event.organizer.name}</strong> has received your brand profile and will message you on WhatsApp (<strong>{brand.phone}</strong>) within 48 hours.
         </p>
 
         {/* CTAs */}
         <div className="space-y-3 pt-2">
           <button
-            type="button"
             onClick={openWhatsApp}
-            className="w-full py-3.5 rounded-airbnb-card bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-button-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.98] cursor-pointer"
+            className="w-full py-3.5 rounded-airbnb-sm bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-body-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.98] cursor-pointer"
           >
             <MessageCircle size={17} />
             <span>Chat on WhatsApp Directly</span>
           </button>
 
           <button
-            type="button"
             onClick={onViewMyEnquiries}
-            className="w-full py-3.5 rounded-airbnb-card border border-hairline bg-white hover:bg-surface-soft active:bg-surface-strong text-ink font-bold text-button-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.98] cursor-pointer"
+            className="w-full py-3 rounded-airbnb-sm border border-hairline hover:bg-surface-soft text-ink font-semibold text-body-sm flex items-center justify-center gap-2 transition-all active:scale-[0.98] cursor-pointer"
           >
             <span>Track in My Enquiries</span>
             <ArrowRight size={15} />
           </button>
 
           <button
-            type="button"
             onClick={onBrowseEvents}
-            className="w-full py-2.5 text-caption font-bold text-ink hover:text-rausch active:text-rausch-active block mx-auto pt-1 cursor-pointer transition-colors"
+            className="text-body-sm text-muted hover:text-ink underline block mx-auto pt-2 cursor-pointer"
           >
-            ← Browse More Exhibitions
+            Browse More Exhibitions
           </button>
         </div>
       </div>

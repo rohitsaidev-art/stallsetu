@@ -1,0 +1,11 @@
+# Media & Recordings
+screenrecorded feedback/
+*.mov
+*.mp4
+*.webm
+*.mkv
+
+# Dependencies & Build
+node_modules
+dist
+.git

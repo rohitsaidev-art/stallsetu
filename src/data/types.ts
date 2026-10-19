@@ -53,6 +53,7 @@ export interface Event {
   floorPlanImage: string; // Venue blueprint URL
   includedAmenities: string[]; // General venue perks
   faqs: EventFAQ[];
+  badgeType?: 'trending' | 'favourite' | 'fast_filling';
 }
 
 export interface VendorBrand {

@@ -25,7 +25,7 @@ export function useStallSetuStore() {
   });
 
   // Saved/Wishlisted events (Heart icon)
-  const [wishlistIds, setWishlistIds] = useState<string[]>(['evt-1']);
+  const [wishlistIds, setWishlistIds] = useState<string[]>([]);
 
   const toggleWishlist = useCallback((eventId: string) => {
     setWishlistIds(prev =>

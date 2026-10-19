@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, SlidersHorizontal } from 'lucide-react';
+import { X, SlidersHorizontal, Check } from 'lucide-react';
 
 interface FilterSheetProps {
   isOpen: boolean;
@@ -66,15 +66,15 @@ export function FilterSheet({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
-      {/* 1. Backdrop (Click to dismiss) */}
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+      {/* 1. Backdrop */}
       <div
         className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-200"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* 2. Modal Sheet (SOLID 100% OPAQUE WHITE CONTAINER - NO TRANSPARENCY) */}
+      {/* 2. Modal Sheet */}
       <div
         className="relative w-full max-w-xl bg-white rounded-t-3xl sm:rounded-2xl border border-zinc-200 shadow-2xl flex flex-col max-h-[90vh] z-10 overflow-hidden"
         style={{ backgroundColor: '#FFFFFF' }}
@@ -84,13 +84,13 @@ export function FilterSheet({
           <button
             type="button"
             onClick={onClose}
-            className="w-8 h-8 rounded-full border border-zinc-200 hover:bg-zinc-100 flex items-center justify-center text-zinc-700 transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full border border-zinc-200 hover:border-zinc-900 hover:bg-zinc-100 flex items-center justify-center text-zinc-700 transition-all active:scale-90 cursor-pointer"
             aria-label="Close filters"
           >
             <X size={17} />
           </button>
           <div className="flex items-center gap-2">
-            <SlidersHorizontal size={16} className="text-zinc-700" />
+            <SlidersHorizontal size={16} className="text-zinc-800" />
             <h2 className="text-[16px] font-bold text-zinc-900">Filters</h2>
           </div>
           <div className="w-8" />
@@ -101,12 +101,12 @@ export function FilterSheet({
           {/* City Selection */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-[14px] font-bold text-ink">City / Location</h3>
+              <h3 className="text-[14px] font-bold text-zinc-900">City / Location</h3>
               {selectedCity !== 'all' && (
                 <button
                   type="button"
                   onClick={() => onSelectCity('all')}
-                  className="text-[12px] font-semibold text-muted hover:text-ink underline cursor-pointer"
+                  className="text-[12px] font-semibold text-zinc-500 hover:text-zinc-900 underline cursor-pointer"
                 >
                   Reset city
                 </button>
@@ -120,13 +120,19 @@ export function FilterSheet({
                     key={c.id}
                     type="button"
                     onClick={() => onSelectCity(selectedCity === c.id ? 'all' : c.id)}
-                    className={`px-4 py-2 rounded-full text-[13px] font-semibold border transition-all duration-150 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-1 ${
+                    className={`px-4 py-2 rounded-full text-[13px] font-semibold border transition-all duration-150 active:scale-95 cursor-pointer flex items-center gap-1.5 ${
                       active
-                        ? 'bg-ink text-white border-ink shadow-sm'
-                        : 'bg-white text-ink border-hairline hover:border-ink hover:bg-surface-soft'
+                        ? 'bg-zinc-900 text-white border-zinc-900 shadow-sm'
+                        : 'bg-white text-zinc-800 border-zinc-300 hover:border-zinc-900 hover:bg-zinc-50'
                     }`}
+                    style={{
+                      backgroundColor: active ? '#222222' : '#FFFFFF',
+                      color: active ? '#FFFFFF' : '#222222',
+                      borderColor: active ? '#222222' : '#DDDDDD',
+                    }}
                   >
-                    {c.label}
+                    {active && <Check size={13} strokeWidth={2.5} className="text-white flex-shrink-0" />}
+                    <span>{c.label}</span>
                   </button>
                 );
               })}
@@ -136,12 +142,12 @@ export function FilterSheet({
           {/* Category Filter */}
           <div className="pt-6 space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-[14px] font-bold text-ink">Event Category</h3>
+              <h3 className="text-[14px] font-bold text-zinc-900">Event Category</h3>
               {selectedCategory !== 'all' && (
                 <button
                   type="button"
                   onClick={() => onSelectCategory('all')}
-                  className="text-[12px] font-semibold text-muted hover:text-ink underline cursor-pointer"
+                  className="text-[12px] font-semibold text-zinc-500 hover:text-zinc-900 underline cursor-pointer"
                 >
                   Reset category
                 </button>
@@ -155,13 +161,19 @@ export function FilterSheet({
                     key={cat.id}
                     type="button"
                     onClick={() => onSelectCategory(selectedCategory === cat.id ? 'all' : cat.id)}
-                    className={`px-4 py-2 rounded-full text-[13px] font-semibold border transition-all duration-150 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-1 ${
+                    className={`px-4 py-2 rounded-full text-[13px] font-semibold border transition-all duration-150 active:scale-95 cursor-pointer flex items-center gap-1.5 ${
                       active
-                        ? 'bg-ink text-white border-ink shadow-sm'
-                        : 'bg-white text-ink border-hairline hover:border-ink hover:bg-surface-soft'
+                        ? 'bg-zinc-900 text-white border-zinc-900 shadow-sm'
+                        : 'bg-white text-zinc-800 border-zinc-300 hover:border-zinc-900 hover:bg-zinc-50'
                     }`}
+                    style={{
+                      backgroundColor: active ? '#222222' : '#FFFFFF',
+                      color: active ? '#FFFFFF' : '#222222',
+                      borderColor: active ? '#222222' : '#DDDDDD',
+                    }}
                   >
-                    {cat.label}
+                    {active && <Check size={13} strokeWidth={2.5} className="text-white flex-shrink-0" />}
+                    <span>{cat.label}</span>
                   </button>
                 );
               })}
@@ -172,7 +184,7 @@ export function FilterSheet({
           <div className="pt-6 space-y-3">
             <div className="flex items-center justify-between">
               <h3 className="text-[14px] font-bold text-zinc-900">Max Stall Budget</h3>
-              <span className="text-[16px] font-bold text-zinc-900 tabular-nums bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200">
+              <span className="text-[15px] font-bold text-zinc-900 tabular-nums bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200">
                 ₹{maxBudget.toLocaleString('en-IN')}
               </span>
             </div>
@@ -184,10 +196,41 @@ export function FilterSheet({
               value={maxBudget}
               onChange={e => onSelectMaxBudget(Number(e.target.value))}
               className="w-full accent-[#FF385C] cursor-pointer h-2 bg-zinc-200 rounded-lg"
+              aria-label="Max Stall Budget Slider"
             />
             <div className="flex justify-between text-[12px] font-medium text-zinc-500">
               <span>₹15,000</span>
               <span>₹1,00,000+</span>
+            </div>
+            {/* Quick budget preset chips */}
+            <div className="flex flex-wrap gap-2 pt-1">
+              {[
+                { label: 'Under ₹20k', value: 20000 },
+                { label: 'Under ₹25k', value: 25000 },
+                { label: 'Under ₹35k', value: 35000 },
+                { label: 'Any Budget', value: 100000 },
+              ].map(preset => {
+                const isActive = maxBudget === preset.value;
+                return (
+                  <button
+                    key={preset.value}
+                    type="button"
+                    onClick={() => onSelectMaxBudget(preset.value)}
+                    className={`px-3.5 py-1.5 rounded-full text-[12px] font-semibold border transition-all active:scale-95 cursor-pointer ${
+                      isActive
+                        ? 'bg-zinc-900 text-white border-zinc-900 shadow-sm'
+                        : 'bg-white text-zinc-800 border-zinc-300 hover:border-zinc-900 hover:bg-zinc-50'
+                    }`}
+                    style={{
+                      backgroundColor: isActive ? '#222222' : '#FFFFFF',
+                      color: isActive ? '#FFFFFF' : '#222222',
+                      borderColor: isActive ? '#222222' : '#DDDDDD',
+                    }}
+                  >
+                    {preset.label}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -202,9 +245,13 @@ export function FilterSheet({
               role="switch"
               aria-checked={onlyAvailable}
               onClick={onToggleOnlyAvailable}
-              className={`relative inline-flex h-7 w-12 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2 ${
-                onlyAvailable ? 'bg-ink' : 'bg-zinc-300'
+              className={`relative inline-flex h-7 w-12 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-rausch focus:ring-offset-2 ${
+                onlyAvailable ? 'bg-rausch' : 'bg-zinc-300'
               }`}
+              style={{
+                backgroundColor: onlyAvailable ? '#FF385C' : '#E4E4E7',
+              }}
+              aria-label="Toggle Available Stalls Only"
             >
               <span
                 aria-hidden="true"
@@ -221,14 +268,18 @@ export function FilterSheet({
           <button
             type="button"
             onClick={onReset}
-            className="text-[13px] font-bold text-muted hover:text-ink underline cursor-pointer active:scale-95 transition-colors"
+            className="text-[13px] font-bold text-zinc-500 hover:text-zinc-900 underline cursor-pointer active:scale-95 transition-colors"
           >
             Clear all
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="px-7 py-3 rounded-xl bg-rausch hover:bg-rausch-hover active:bg-rausch-active text-white font-bold text-[14px] shadow-md transition-all active:scale-[0.98] cursor-pointer"
+            className="px-7 py-3 rounded-xl bg-rausch hover:bg-rausch-hover active:bg-rausch-active text-white font-bold text-[14px] shadow-sm hover:shadow-md transition-all active:scale-[0.98] cursor-pointer"
+            style={{
+              backgroundColor: '#FF385C',
+              color: '#FFFFFF',
+            }}
           >
             Show {totalFilteredCount} {totalFilteredCount === 1 ? 'Exhibition' : 'Exhibitions'}
           </button>

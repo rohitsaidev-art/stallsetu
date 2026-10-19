@@ -16,6 +16,7 @@ export const primaryOrganizer: OrganizerProfile = {
 export const seedEvents: Event[] = [
   {
     id: 'evt-1',
+    badgeType: 'trending',
     name: 'Sunday Soul Santé Bengaluru',
     venue: 'UB City Mall, Central Piazza',
     address: '24 Vittal Mallya Rd, KG Halli, D’ Souza Layout, Ashok Nagar, Bengaluru',
@@ -163,6 +164,7 @@ export const seedEvents: Event[] = [
   },
   {
     id: 'evt-2',
+    badgeType: 'favourite',
     name: 'Hyderabad Flea Affair',
     venue: 'HITEX Exhibition Centre, Hall 3 Open Grounds',
     address: 'Trade Fair Office Building, Izzathnagar, Madhapur, Hyderabad, Telangana',
@@ -243,6 +245,7 @@ export const seedEvents: Event[] = [
   },
   {
     id: 'evt-3',
+    badgeType: 'fast_filling',
     name: 'The Vintage Garden Flea Mumbai',
     venue: 'Patkar Bungalow, Turner Road, Bandra West',
     address: 'Patkar Bungalow, 34 Turner Rd, Bandra West, Mumbai, Maharashtra',
@@ -298,6 +301,7 @@ export const seedEvents: Event[] = [
   },
   {
     id: 'evt-4',
+    badgeType: 'favourite',
     name: 'Dastkar Winter Haat Delhi',
     venue: 'Nature Bazaar, Kisan Haat, Andheria Modh',
     address: 'Anuvrat Marg, Desu Colony, Chhatarpur, New Delhi, Delhi 110074',
@@ -353,6 +357,7 @@ export const seedEvents: Event[] = [
   },
   {
     id: 'evt-5',
+    badgeType: 'trending',
     name: 'The Wassup Flea Pune',
     venue: 'Royal Palms, Koregaon Park Annexe',
     address: '84/36, KP Annexe, Mundhwa, Pune, Maharashtra 411036',

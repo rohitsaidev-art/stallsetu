@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Media & Recordings
+*.mov
+*.mp4
+screenrecorded feedback/

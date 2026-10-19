@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Heart, ClipboardList, Filter } from 'lucide-react';
+import { Heart, ClipboardList, Filter, LayoutGrid, List } from 'lucide-react';
 import { useStallSetuStore } from './store/useStore';
 import type { Event, Stall, VendorBrand, Enquiry } from './data/types';
 import { SearchPill } from './components/vendor/SearchPill';
@@ -11,6 +11,9 @@ import { BrandProfileForm } from './components/vendor/BrandProfileForm';
 import { EnquiryReview } from './components/vendor/EnquiryReview';
 import { SuccessScreen } from './components/vendor/SuccessScreen';
 import { MyEnquiries } from './components/vendor/MyEnquiries';
+import { PolicyModal, type PolicyType } from './components/vendor/PolicyModal';
+import { SortDropdown, type SortOption } from './components/vendor/SortDropdown';
+import { ProfileMenu } from './components/vendor/ProfileMenu';
 
 type VendorScreen =
   | 'discovery'
@@ -28,10 +31,19 @@ export default function App() {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [selectedStall, setSelectedStall] = useState<Stall | null>(null);
 
+  // Policy Modal state
+  const [activePolicy, setActivePolicy] = useState<PolicyType>(null);
+
   // In-progress Enquiry draft state
   const [draftBrand, setDraftBrand] = useState<VendorBrand | null>(null);
   const [draftMessage, setDraftMessage] = useState<string>('');
   const [lastSubmittedId, setLastSubmittedId] = useState<string>('');
+
+  // View Mode: Grid vs List
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+
+  // Sorting State
+  const [currentSort, setCurrentSort] = useState<SortOption>('recommended');
 
   // Filter States
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -41,9 +53,9 @@ export default function App() {
   const [onlyAvailable, setOnlyAvailable] = useState(false);
   const [wishlistOnly, setWishlistOnly] = useState(false);
 
-  // Filtered Events
+  // Filtered & Sorted Events
   const filteredEvents = useMemo(() => {
-    return store.events.filter(event => {
+    const list = store.events.filter(event => {
       // Wishlist filter
       if (wishlistOnly && !store.wishlistIds.includes(event.id)) {
         return false;
@@ -71,6 +83,33 @@ export default function App() {
       }
       return true;
     });
+
+    // Apply Sorting
+    return [...list].sort((a, b) => {
+      const minPriceA = Math.min(...a.stalls.map(s => s.price));
+      const minPriceB = Math.min(...b.stalls.map(s => s.price));
+      const availA = a.stalls.filter(s => s.status === 'available').length;
+      const availB = b.stalls.filter(s => s.status === 'available').length;
+
+      switch (currentSort) {
+        case 'price_asc':
+          return minPriceA - minPriceB;
+        case 'price_desc':
+          return minPriceB - minPriceA;
+        case 'date_asc':
+          return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+        case 'stalls_avail':
+          return availB - availA;
+        case 'footfall': {
+          const footA = parseInt(a.footfall.replace(/[^0-9]/g, '')) || 0;
+          const footB = parseInt(b.footfall.replace(/[^0-9]/g, '')) || 0;
+          return footB - footA;
+        }
+        case 'recommended':
+        default:
+          return 0;
+      }
+    });
   }, [
     store.events,
     selectedCity,
@@ -79,6 +118,7 @@ export default function App() {
     onlyAvailable,
     wishlistOnly,
     store.wishlistIds,
+    currentSort,
   ]);
 
   const handleResetFilters = () => {
@@ -87,6 +127,7 @@ export default function App() {
     setMaxBudget(100000);
     setOnlyAvailable(false);
     setWishlistOnly(false);
+    setCurrentSort('recommended');
   };
 
   // Flow Handlers
@@ -204,33 +245,117 @@ export default function App() {
   return (
     <div className="bg-canvas min-h-screen text-ink flex flex-col">
       {/* =========================================================================
-          AIRBNB TOP HEADER WITH 3-SEGMENT PILL SEARCH
+          UNIFIED AIRBNB STICKY HEADER
+          Combines logo, search pill, action bar and category strip with solid white
+          background to prevent seams, jagged scrolling, and card bleed-throughs.
          ========================================================================= */}
-      <header className="sticky top-0 z-30 bg-canvas/95 backdrop-blur-md border-b border-hairline py-3.5 px-4 sm:px-8">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          {/* Logo / Brand Name */}
-          <button
-            onClick={() => {
-              handleResetFilters();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="flex items-center gap-2 flex-shrink-0 text-left group cursor-pointer active:scale-95 transition-transform"
-          >
-            <div className="w-8 h-8 rounded-xl bg-rausch flex items-center justify-center text-white shadow-sm transition-transform group-hover:scale-105">
-              <span className="font-bold text-sm tracking-tight">S</span>
+      <div className="sticky top-0 z-30 bg-white border-b border-hairline shadow-[0_2px_10px_rgba(0,0,0,0.04)]">
+        {/* Top Navbar */}
+        <header className="py-3 px-4 sm:px-8 border-b border-zinc-100">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            {/* Left Column: Brand Logo (Anchored width prevents shift) */}
+            <div className="w-44 sm:w-56 flex-shrink-0 flex items-center">
+              <button
+                type="button"
+                onClick={() => {
+                  handleResetFilters();
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="flex items-center gap-2.5 text-left group cursor-pointer active:scale-95 transition-transform"
+                aria-label="StallSetu Home"
+              >
+                <div
+                  className="w-8 h-8 rounded-xl flex items-center justify-center text-white shadow-sm transition-transform group-hover:scale-105 flex-shrink-0"
+                  style={{ backgroundColor: '#FF385C', color: '#FFFFFF' }}
+                >
+                  <span className="font-extrabold text-sm tracking-tight text-white">S</span>
+                </div>
+                <div>
+                  <span className="text-title-md font-bold text-ink tracking-tight block leading-none">
+                    StallSetu
+                  </span>
+                  <span className="text-[10px] text-muted tracking-wide uppercase font-semibold">
+                    Exhibitions India
+                  </span>
+                </div>
+              </button>
             </div>
-            <div>
-              <span className="text-title-md font-bold text-ink tracking-tight block leading-none">
-                StallSetu
-              </span>
-              <span className="text-[10px] text-muted tracking-wide uppercase font-semibold">
-                Exhibitions India
-              </span>
-            </div>
-          </button>
 
-          {/* Airbnb 3-Segment Search Pill */}
-          <div className="flex-1 max-w-lg hidden sm:block">
+            {/* Center Column: Airbnb 3-Segment Search Pill */}
+            <div className="flex-1 max-w-lg hidden sm:flex justify-center">
+              <SearchPill
+                selectedCity={selectedCity}
+                selectedCategory={selectedCategory}
+                maxBudget={maxBudget}
+                onOpenFilter={() => setIsFilterOpen(true)}
+              />
+            </div>
+
+            {/* Right Column: Airbnb Utilities (Saved, My Enquiries, Profile Menu) */}
+            <div className="w-44 sm:w-56 flex-shrink-0 flex items-center justify-end gap-2">
+              {/* Wishlist filter toggle */}
+              <button
+                type="button"
+                onClick={() => setWishlistOnly(prev => !prev)}
+                className={`h-9 px-3 rounded-full border text-caption flex items-center gap-1.5 transition-all duration-150 active:scale-95 cursor-pointer shadow-sm ${
+                  wishlistOnly
+                    ? 'border-rausch bg-rausch/10 text-rausch font-bold'
+                    : 'border-hairline bg-white hover:border-ink hover:bg-surface-soft text-ink font-semibold'
+                }`}
+                title="Saved Events"
+                aria-label="View Saved Events"
+              >
+                <Heart
+                  size={14}
+                  className={`transition-colors ${
+                    wishlistOnly
+                      ? 'fill-rausch text-rausch scale-110'
+                      : store.wishlistIds.length > 0
+                      ? 'fill-rausch text-rausch'
+                      : 'text-zinc-700'
+                  }`}
+                />
+                <span className="hidden sm:inline">Saved</span>
+                {store.wishlistIds.length > 0 && (
+                  <span className="text-[11px] font-bold text-rausch tabular-nums">
+                    ({store.wishlistIds.length})
+                  </span>
+                )}
+              </button>
+
+              {/* My Enquiries Button (Unsquished, perfectly proportioned circular badge) */}
+              <button
+                type="button"
+                onClick={() => setCurrentScreen('my_enquiries')}
+                className="h-9 px-3.5 rounded-full font-bold text-caption flex items-center gap-2 shadow-sm transition-all duration-150 active:scale-95 cursor-pointer hover:bg-black"
+                style={{ backgroundColor: '#222222', color: '#FFFFFF' }}
+                aria-label="View My Enquiries"
+              >
+                <ClipboardList size={14} className="text-white flex-shrink-0" />
+                <span className="text-white hidden lg:inline">My Enquiries</span>
+                {store.enquiries.length > 0 && (
+                  <span
+                    className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0 tabular-nums shadow-sm"
+                    style={{ backgroundColor: '#FF385C' }}
+                  >
+                    {store.enquiries.length}
+                  </span>
+                )}
+              </button>
+
+              {/* Airbnb User Menu Pill */}
+              <ProfileMenu
+                enquiryCount={store.enquiries.length}
+                wishlistCount={store.wishlistIds.length}
+                onOpenMyEnquiries={() => setCurrentScreen('my_enquiries')}
+                onOpenWishlist={() => setWishlistOnly(true)}
+                onOpenGuidelines={() => setActivePolicy('guidelines')}
+              />
+            </div>
+          </div>
+
+          {/* Mobile Search Pill */}
+          <div className="sm:hidden pt-3">
             <SearchPill
               selectedCity={selectedCity}
               selectedCategory={selectedCategory}
@@ -238,68 +363,21 @@ export default function App() {
               onOpenFilter={() => setIsFilterOpen(true)}
             />
           </div>
+        </header>
 
-          {/* Action Utilities (Wishlist & My Enquiries) */}
-          <div className="flex items-center gap-2.5 flex-shrink-0">
-            {/* Wishlist filter toggle */}
-            <button
-              onClick={() => setWishlistOnly(prev => !prev)}
-              className={`h-9 px-3.5 rounded-full border text-caption flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shadow-sm ${
-                wishlistOnly
-                  ? 'border-rausch bg-rausch/10 text-rausch font-bold'
-                  : 'border-hairline bg-white hover:border-ink hover:bg-surface-soft text-ink font-semibold'
-              }`}
-              title="Saved Events"
-            >
-              <Heart
-                size={14}
-                className={wishlistOnly ? 'fill-rausch text-rausch' : 'text-zinc-700'}
-              />
-              <span className="hidden sm:inline">Saved</span>
-              {store.wishlistIds.length > 0 && (
-                <span className="text-[11px] font-bold">({store.wishlistIds.length})</span>
-              )}
-            </button>
-
-            {/* My Enquiries Button */}
-            <button
-              onClick={() => setCurrentScreen('my_enquiries')}
-              className="h-9 px-4 rounded-full bg-ink text-white hover:bg-black font-bold text-caption flex items-center gap-2 shadow-sm transition-all active:scale-95 cursor-pointer"
-            >
-              <ClipboardList size={14} />
-              <span>My Enquiries</span>
-              {store.enquiries.length > 0 && (
-                <span className="bg-rausch text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                  {store.enquiries.length}
-                </span>
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Search Pill (Below logo on small screens) */}
-        <div className="sm:hidden pt-3">
-          <SearchPill
-            selectedCity={selectedCity}
-            selectedCategory={selectedCategory}
-            maxBudget={maxBudget}
-            onOpenFilter={() => setIsFilterOpen(true)}
-          />
-        </div>
-      </header>
-
-      {/* Category Strip */}
-      <CategoryStrip
-        activeCategory={selectedCategory}
-        onSelectCategory={cat => setSelectedCategory(cat)}
-      />
+        {/* Category Strip */}
+        <CategoryStrip
+          activeCategory={selectedCategory}
+          onSelectCategory={cat => setSelectedCategory(cat)}
+        />
+      </div>
 
       {/* =========================================================================
           EVENT CARDS FEED
          ========================================================================= */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-8">
-        {/* Feed Header */}
-        <div className="flex items-center justify-between mb-6">
+        {/* Feed Header with Clean Typography, Sort Dropdown, Filters and View Toggle */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-2">
           <div>
             <h2 className="text-display-sm font-bold text-ink">
               {wishlistOnly
@@ -308,30 +386,77 @@ export default function App() {
                 ? 'Curated Exhibitions & Flea Markets'
                 : `Exhibitions in ${selectedCity}`}
             </h2>
-            <p className="text-body-sm text-muted">
-              {filteredEvents.length}{' '}
-              {filteredEvents.length === 1 ? 'event opportunity' : 'event opportunities'}{' '}
-              available across India
+            <p className="text-body-sm text-muted mt-0.5">
+              Explore{' '}
+              <span className="font-semibold text-ink">{filteredEvents.length}</span>{' '}
+              {filteredEvents.length === 1 ? 'curated opportunity' : 'curated opportunities'}{' '}
+              across India
             </p>
           </div>
 
-          <button
-            onClick={() => setIsFilterOpen(true)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full border border-hairline bg-white hover:border-ink hover:bg-surface-soft text-caption font-bold text-ink transition-all active:scale-95 cursor-pointer shadow-sm ${
-              selectedCity !== 'all' || selectedCategory !== 'all' || maxBudget < 100000 || onlyAvailable
-                ? 'border-ink bg-surface-soft ring-1 ring-ink'
-                : ''
-            }`}
-          >
-            <Filter size={14} />
-            <span>Filters</span>
-            {(selectedCity !== 'all' || selectedCategory !== 'all' || maxBudget < 100000 || onlyAvailable) && (
-              <span className="w-2 h-2 rounded-full bg-rausch" />
-            )}
-          </button>
+          {/* Controls Bar: Sort + Filter + Extended View Toggle */}
+          <div className="flex items-center gap-2.5 self-start sm:self-auto flex-wrap">
+            {/* Sort Dropdown */}
+            <SortDropdown
+              currentSort={currentSort}
+              onSelectSort={sort => setCurrentSort(sort)}
+            />
+
+            {/* Filter Trigger Button */}
+            <button
+              type="button"
+              onClick={() => setIsFilterOpen(true)}
+              className={`flex items-center gap-2 h-9 px-3.5 rounded-full border border-hairline bg-white hover:border-ink hover:bg-surface-soft text-caption font-bold text-ink transition-all active:scale-95 cursor-pointer shadow-sm ${
+                selectedCity !== 'all' || selectedCategory !== 'all' || maxBudget < 100000 || onlyAvailable
+                  ? 'border-ink bg-surface-soft ring-1 ring-ink'
+                  : ''
+              }`}
+            >
+              <Filter size={14} />
+              <span>Filters</span>
+              {(selectedCity !== 'all' || selectedCategory !== 'all' || maxBudget < 100000 || onlyAvailable) && (
+                <span
+                  className="w-2 h-2 rounded-full"
+                  style={{ backgroundColor: '#FF385C' }}
+                />
+              )}
+            </button>
+
+            {/* Extended View Mode Toggle (Grid vs List with Icons + Labels) */}
+            <div className="flex items-center rounded-full border border-hairline bg-surface-soft p-0.5 shadow-sm">
+              <button
+                type="button"
+                onClick={() => setViewMode('grid')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-caption font-semibold transition-all duration-150 cursor-pointer ${
+                  viewMode === 'grid'
+                    ? 'bg-white text-ink shadow-sm'
+                    : 'text-muted hover:text-ink'
+                }`}
+                title="Grid View"
+                aria-label="Switch to Grid View"
+              >
+                <LayoutGrid size={15} />
+                <span className="text-[12px] hidden md:inline">Grid</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('list')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-caption font-semibold transition-all duration-150 cursor-pointer ${
+                  viewMode === 'list'
+                    ? 'bg-white text-ink shadow-sm'
+                    : 'text-muted hover:text-ink'
+                }`}
+                title="List View"
+                aria-label="Switch to List View"
+              >
+                <List size={15} />
+                <span className="text-[12px] hidden md:inline">List</span>
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Event Cards Grid */}
+        {/* Event Cards Display (Grid vs List) */}
         {filteredEvents.length === 0 ? (
           <div className="text-center py-20 bg-surface-soft/60 rounded-2xl border-2 border-dashed border-hairline p-8 space-y-3">
             <h3 className="text-title-md font-bold text-ink">
@@ -343,13 +468,14 @@ export default function App() {
                 : 'Try adjusting your city, raising your budget threshold, or clearing selected categories.'}
             </p>
             <button
+              type="button"
               onClick={handleResetFilters}
               className="mt-2 px-6 py-3 rounded-xl bg-ink text-white text-body-sm font-bold shadow-sm hover:bg-black transition-all active:scale-95 cursor-pointer"
             >
               {wishlistOnly ? 'Explore All Exhibitions' : 'Reset All Filters'}
             </button>
           </div>
-        ) : (
+        ) : viewMode === 'grid' ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
             {filteredEvents.map(event => (
               <EventCard
@@ -358,6 +484,20 @@ export default function App() {
                 isWishlisted={store.wishlistIds.includes(event.id)}
                 onToggleWishlist={store.toggleWishlist}
                 onSelectEvent={handleSelectEvent}
+                variant="grid"
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col space-y-4">
+            {filteredEvents.map(event => (
+              <EventCard
+                key={event.id}
+                event={event}
+                isWishlisted={store.wishlistIds.includes(event.id)}
+                onToggleWishlist={store.toggleWishlist}
+                onSelectEvent={handleSelectEvent}
+                variant="list"
               />
             ))}
           </div>
@@ -369,11 +509,29 @@ export default function App() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <p>© 2026 StallSetu · Adaptive Intellect Technologies. All rights reserved.</p>
           <div className="flex gap-4">
-            <span className="hover:underline cursor-pointer">Privacy</span>
+            <button
+              type="button"
+              onClick={() => setActivePolicy('privacy')}
+              className="hover:underline hover:text-ink cursor-pointer transition-colors active:scale-95"
+            >
+              Privacy
+            </button>
             <span>·</span>
-            <span className="hover:underline cursor-pointer">Terms & Conditions</span>
+            <button
+              type="button"
+              onClick={() => setActivePolicy('terms')}
+              className="hover:underline hover:text-ink cursor-pointer transition-colors active:scale-95"
+            >
+              Terms & Conditions
+            </button>
             <span>·</span>
-            <span className="hover:underline cursor-pointer">Exhibitor Guidelines</span>
+            <button
+              type="button"
+              onClick={() => setActivePolicy('guidelines')}
+              className="hover:underline hover:text-ink cursor-pointer transition-colors active:scale-95"
+            >
+              Exhibitor Guidelines
+            </button>
           </div>
         </div>
       </footer>
@@ -392,6 +550,12 @@ export default function App() {
         onToggleOnlyAvailable={() => setOnlyAvailable(prev => !prev)}
         totalFilteredCount={filteredEvents.length}
         onReset={handleResetFilters}
+      />
+
+      {/* Informational Policy Modal */}
+      <PolicyModal
+        type={activePolicy}
+        onClose={() => setActivePolicy(null)}
       />
     </div>
   );

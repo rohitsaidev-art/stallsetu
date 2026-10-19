@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ArrowLeft, Check, Sparkles, Trash2, Upload } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { ArrowLeft, Check, Sparkles, Trash2, Upload, X } from 'lucide-react';
 import type { Event, Stall, VendorBrand } from '../../data/types';
 
 interface BrandProfileFormProps {
@@ -50,7 +50,7 @@ export function BrandProfileForm({
   const [message, setMessage] = useState(
     `We would love to participate in ${event.name} with Stall ${stall.label}. Our brand has participated in 3 flea markets in South India and we cater directly to your visitor demographic.`
   );
-  const [photos] = useState<string[]>(
+  const [photos, setPhotos] = useState<string[]>(
     savedProfile?.productPhotos?.length
       ? savedProfile.productPhotos
       : [
@@ -58,6 +58,30 @@ export function BrandProfileForm({
           'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&q=80',
         ]
   );
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleAddPhotoClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = ev => {
+        if (ev.target?.result) {
+          setPhotos(prev => [...prev, ev.target!.result as string]);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+    e.target.value = '';
+  };
+
+  const handleRemovePhoto = (index: number) => {
+    setPhotos(prev => prev.filter((_, i) => i !== index));
+  };
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -71,6 +95,7 @@ export function BrandProfileForm({
     setEmail('');
     setInstagram('');
     setMustHaves([]);
+    setPhotos([]);
   };
 
   const toggleMustHave = (item: string) => {
@@ -426,21 +451,43 @@ export function BrandProfileForm({
 
               <div>
                 <label className="text-[12px] font-semibold text-ink block mb-2">
-                  Product / Stall Photos ({photos.length} uploaded)
+                  Product / Stall Photos ({photos.length} attached)
                 </label>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleFileChange}
+                  data-testid="photo-file-input"
+                />
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {photos.map((url, i) => (
                     <div
                       key={i}
                       className="aspect-square rounded-xl overflow-hidden bg-surface-soft border border-hairline relative group shadow-sm"
                     >
-                      <img src={url} alt="Product" className="w-full h-full object-cover" />
+                      <img src={url} alt={`Product ${i + 1}`} className="w-full h-full object-cover" />
+                      <button
+                        type="button"
+                        onClick={() => handleRemovePhoto(i)}
+                        className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/95 text-zinc-700 hover:text-black hover:bg-white shadow-md flex items-center justify-center transition-all active:scale-90 cursor-pointer border border-zinc-200"
+                        title="Remove photo"
+                        aria-label="Remove photo"
+                      >
+                        <X size={14} />
+                      </button>
                     </div>
                   ))}
-                  <div className="aspect-square rounded-xl border-2 border-dashed border-hairline hover:border-ink bg-surface-soft flex flex-col items-center justify-center text-muted hover:text-ink cursor-pointer transition-all active:scale-95">
+                  <button
+                    type="button"
+                    onClick={handleAddPhotoClick}
+                    className="aspect-square rounded-xl border-2 border-dashed border-hairline hover:border-ink bg-surface-soft flex flex-col items-center justify-center text-muted hover:text-ink cursor-pointer transition-all active:scale-95"
+                    aria-label="Upload photo"
+                  >
                     <Upload size={22} className="mb-1" />
                     <span className="text-[11px] font-bold">+ Add Photo</span>
-                  </div>
+                  </button>
                 </div>
               </div>
 

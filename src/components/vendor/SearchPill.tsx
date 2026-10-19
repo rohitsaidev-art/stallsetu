@@ -1,5 +1,15 @@
 import React from 'react';
-import { Search } from 'lucide-react';
+import {
+  Search,
+  Sparkles,
+  Shirt,
+  Gem,
+  UtensilsCrossed,
+  Palette,
+  Leaf,
+  Smile,
+  type LucideIcon,
+} from 'lucide-react';
 
 interface SearchPillProps {
   selectedCity: string;
@@ -8,6 +18,16 @@ interface SearchPillProps {
   onOpenFilter: () => void;
 }
 
+const categoryMeta: Record<string, { label: string; icon: LucideIcon }> = {
+  all: { label: 'Any Category', icon: Sparkles },
+  fashion: { label: 'Fashion', icon: Shirt },
+  jewellery: { label: 'Jewellery', icon: Gem },
+  food: { label: 'Food & Gourmet', icon: UtensilsCrossed },
+  art: { label: 'Art & Craft', icon: Palette },
+  lifestyle: { label: 'Home & Living', icon: Leaf },
+  wellness: { label: 'Wellness', icon: Smile },
+};
+
 export function SearchPill({
   selectedCity,
   selectedCategory,
@@ -15,7 +35,9 @@ export function SearchPill({
   onOpenFilter,
 }: SearchPillProps) {
   const cityLabel = selectedCity === 'all' ? 'Anywhere in India' : selectedCity;
-  const categoryLabel = selectedCategory === 'all' ? 'Any Category' : selectedCategory;
+  const currentCat = categoryMeta[selectedCategory] || { label: selectedCategory, icon: Sparkles };
+  const CategoryIcon = currentCat.icon;
+  const isCustomCategory = selectedCategory !== 'all';
   const budgetLabel = maxBudget >= 100000 ? 'Any Budget' : `Under ₹${(maxBudget / 1000).toFixed(0)}k`;
 
   return (
@@ -23,36 +45,54 @@ export function SearchPill({
       <button
         type="button"
         onClick={onOpenFilter}
-        className="w-full max-w-xl flex items-center bg-white rounded-full border border-zinc-200/90 shadow-airbnb-pill hover:shadow-airbnb-pill-hover px-4 py-2 text-left transition-all duration-200 active:scale-[0.99] group cursor-pointer"
+        className="w-full max-w-xl h-[52px] flex items-center bg-white rounded-full border border-hairline shadow-airbnb-pill hover:shadow-airbnb-pill-hover pl-4 pr-2 text-left transition-all duration-200 active:scale-[0.99] group cursor-pointer"
         aria-label="Open event search and filters"
       >
-        {/* Segment 1: City */}
-        <div className="flex-1 px-3 py-0.5 min-w-0">
-          <p className="text-[13px] font-bold text-zinc-900 group-hover:text-rausch transition-colors truncate">
+        {/* Segment 1: Location */}
+        <div className="flex-1 px-3 py-1 min-w-0">
+          <p className="text-[13px] font-bold text-ink group-hover:text-rausch transition-colors truncate leading-tight">
             {cityLabel}
           </p>
-          <p className="text-[11px] font-medium text-zinc-500 truncate">Select location</p>
+          <p className="text-[11px] font-medium text-muted truncate leading-tight mt-0.5">
+            Select location
+          </p>
         </div>
 
-        <div className="h-6 w-px bg-zinc-200 flex-shrink-0" />
+        <div className="h-6 w-px bg-hairline flex-shrink-0" />
 
-        {/* Segment 2: Category (Hidden on small mobile) */}
-        <div className="flex-1 px-3 py-0.5 min-w-0 hidden sm:block">
-          <p className="text-[13px] font-bold text-zinc-900 truncate">{categoryLabel}</p>
-          <p className="text-[11px] font-medium text-zinc-500 truncate">Exhibition type</p>
+        {/* Segment 2: Category (Reflects active category with icon) */}
+        <div className="flex-1 px-3 py-1 min-w-0 hidden sm:block">
+          <div className="flex items-center gap-1.5 min-w-0">
+            {isCustomCategory && (
+              <CategoryIcon size={13} strokeWidth={2.2} className="text-rausch flex-shrink-0" />
+            )}
+            <p className="text-[13px] font-bold text-ink truncate leading-tight">
+              {currentCat.label}
+            </p>
+          </div>
+          <p className="text-[11px] font-medium text-muted truncate leading-tight mt-0.5">
+            Exhibition type
+          </p>
         </div>
 
-        <div className="h-6 w-px bg-zinc-200 flex-shrink-0 hidden sm:block" />
+        <div className="h-6 w-px bg-hairline flex-shrink-0 hidden sm:block" />
 
         {/* Segment 3: Budget */}
-        <div className="flex-1 px-3 py-0.5 min-w-0">
-          <p className="text-[13px] font-bold text-zinc-900 truncate tabular-nums">{budgetLabel}</p>
-          <p className="text-[11px] font-medium text-zinc-500 truncate">Max stall budget</p>
+        <div className="flex-1 px-3 py-1 min-w-0">
+          <p className="text-[13px] font-bold text-ink truncate tabular-nums leading-tight">
+            {budgetLabel}
+          </p>
+          <p className="text-[11px] font-medium text-muted truncate leading-tight mt-0.5">
+            Max stall budget
+          </p>
         </div>
 
-        {/* The Rausch Search Orb */}
-        <div className="ml-2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-rausch hover:bg-rausch-hover text-white flex items-center justify-center flex-shrink-0 transition-transform duration-150 active:scale-90 shadow-sm">
-          <Search size={16} strokeWidth={2.6} />
+        {/* Signature Airbnb Rausch Search Orb */}
+        <div
+          className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-150 active:scale-90 shadow-sm ml-1"
+          style={{ backgroundColor: '#FF385C' }}
+        >
+          <Search size={14} strokeWidth={2.6} className="text-white" />
         </div>
       </button>
     </div>

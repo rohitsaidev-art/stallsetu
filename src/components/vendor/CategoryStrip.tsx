@@ -26,9 +26,9 @@ const categories = [
 
 export function CategoryStrip({ activeCategory, onSelectCategory }: CategoryStripProps) {
   return (
-    <div className="border-b border-zinc-200/80 bg-white sticky top-[69px] z-20">
+    <div className="w-full bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        <div className="flex items-center gap-6 sm:gap-8 overflow-x-auto no-scrollbar py-3.5">
+        <div className="flex items-center justify-start md:justify-center gap-6 sm:gap-10 overflow-x-auto no-scrollbar py-3.5">
           {categories.map(cat => {
             const isActive = activeCategory === cat.id;
             const Icon = cat.icon;
@@ -38,27 +38,27 @@ export function CategoryStrip({ activeCategory, onSelectCategory }: CategoryStri
                 type="button"
                 onClick={() => onSelectCategory(activeCategory === cat.id ? 'all' : cat.id)}
                 className={`flex flex-col items-center gap-1.5 flex-shrink-0 group pb-2 relative transition-all duration-150 active:scale-95 cursor-pointer ${
-                  isActive ? 'text-zinc-900' : 'text-zinc-500 hover:text-zinc-900'
+                  isActive ? 'text-ink' : 'text-muted hover:text-ink'
                 }`}
               >
                 <div
-                  className={`w-7 h-7 flex items-center justify-center transition-colors ${
-                    isActive ? 'text-zinc-900 scale-105' : 'text-zinc-400 group-hover:text-zinc-700'
+                  className={`w-7 h-7 flex items-center justify-center transition-all duration-150 ${
+                    isActive ? 'text-ink scale-105' : 'text-muted-soft group-hover:text-ink'
                   }`}
                 >
-                  <Icon size={20} strokeWidth={isActive ? 2.4 : 1.8} />
+                  <Icon size={21} strokeWidth={isActive ? 2.0 : 1.6} />
                 </div>
                 <span
                   className={`text-[12px] whitespace-nowrap transition-colors ${
-                    isActive ? 'font-bold text-zinc-900' : 'font-medium text-zinc-500 group-hover:text-zinc-800'
+                    isActive ? 'font-bold text-ink' : 'font-medium text-muted group-hover:text-ink'
                   }`}
                 >
                   {cat.label}
                 </span>
 
-                {/* Airbnb Style Active Underline Rule */}
+                {/* Airbnb Style Active Indicator Underline */}
                 {isActive && (
-                  <span className="absolute bottom-0 left-1 right-1 h-[2.5px] bg-zinc-900 rounded-full" />
+                  <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-ink rounded-full transition-all duration-200" />
                 )}
               </button>
             );
